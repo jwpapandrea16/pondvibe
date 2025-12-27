@@ -38,7 +38,7 @@ export default function Home() {
 
               <FadeIn delay={0.3}>
                 <p className="text-lg text-black/60 max-w-2xl mx-auto">
-                  Share and discover authentic reviews of TV shows, movies, books, sports teams, and travel destinations.
+                  Share and discover authentic reviews of TV shows, movies, books, and travel destinations.
                   Powered by NFT verification.
                 </p>
               </FadeIn>
