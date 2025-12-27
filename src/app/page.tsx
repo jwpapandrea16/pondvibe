@@ -47,7 +47,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
                   <Link
                     href="/reviews"
-                    className="px-8 py-4 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-green transition-all hover:scale-105 text-lg"
+                    className="px-8 py-4 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all hover:scale-105 text-lg"
                   >
                     Browse Reviews
                   </Link>
