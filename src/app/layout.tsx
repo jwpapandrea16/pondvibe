@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Black_Ops_One, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Web3Provider } from "@/components/web3/Web3Provider";
 import { AuthProvider } from "@/contexts/AuthContext";
-
-const blackOpsOne = Black_Ops_One({
-  weight: "400",
-  variable: "--font-tanker",
-  subsets: ["latin"],
-});
 
 const inter = Inter({
   variable: "--font-sans",
@@ -28,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${blackOpsOne.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <Web3Provider>
           <AuthProvider>
             {children}
