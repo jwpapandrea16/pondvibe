@@ -162,7 +162,7 @@ function FeedContent() {
               ) : (
                 <>
                   {/* Results Count */}
-                  <div className="mb-6 text-white/60">
+                  <div className="mb-6 text-black/60">
                     Showing {offset + 1} - {Math.min(offset + limit, total)} of {total} reviews
                   </div>
 
@@ -182,7 +182,7 @@ function FeedContent() {
                             ...Object.fromEntries(searchParams.entries()),
                             offset: (offset - limit).toString(),
                           }).toString()}`}
-                          className="px-6 py-3 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all"
+                          className="px-6 py-3 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all"
                         >
                           ← Previous
                         </a>
@@ -193,7 +193,7 @@ function FeedContent() {
                             ...Object.fromEntries(searchParams.entries()),
                             offset: (offset + limit).toString(),
                           }).toString()}`}
-                          className="px-6 py-3 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all"
+                          className="px-6 py-3 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all"
                         >
                           Next →
                         </a>
