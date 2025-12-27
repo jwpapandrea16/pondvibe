@@ -14,7 +14,7 @@ const categories = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1">
