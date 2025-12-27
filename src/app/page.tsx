@@ -24,40 +24,50 @@ export default function Home() {
 
           <div className="container relative mx-auto max-w-6xl">
             <div className="text-center space-y-8">
-              <h1 className="text-5xl md:text-7xl font-tanker text-white glow-lime animate-fade-in">
-                POND VIBE
-              </h1>
+              <FadeIn delay={0.1}>
+                <h1 className="text-5xl md:text-7xl font-tanker text-white glow-lime">
+                  POND VIBE
+                </h1>
+              </FadeIn>
 
-              <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto animate-slide-up">
-                Verified Reviews from the{' '}
-                <span className="text-plague-lime font-semibold">Plague Community</span>
-              </p>
+              <FadeIn delay={0.2}>
+                <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+                  Verified Reviews from the{' '}
+                  <span className="text-plague-lime font-semibold">Plague Community</span>
+                </p>
+              </FadeIn>
 
-              <p className="text-lg text-white/60 max-w-2xl mx-auto">
-                Share and discover authentic reviews of TV shows, movies, books, sports teams, and travel destinations.
-                Powered by NFT verification.
-              </p>
+              <FadeIn delay={0.3}>
+                <p className="text-lg text-white/60 max-w-2xl mx-auto">
+                  Share and discover authentic reviews of TV shows, movies, books, sports teams, and travel destinations.
+                  Powered by NFT verification.
+                </p>
+              </FadeIn>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
-                <Link
-                  href="/reviews"
-                  className="px-8 py-4 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all hover:scale-105 text-lg"
-                >
-                  Browse Reviews
-                </Link>
-                <Link
-                  href="/reviews/new"
-                  className="px-8 py-4 border-2 border-plague-lime text-plague-lime font-bold rounded-lg hover:bg-plague-lime/10 transition-colors text-lg"
-                >
-                  Write a Review
-                </Link>
-              </div>
+              <FadeIn delay={0.4}>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
+                  <Link
+                    href="/reviews"
+                    className="px-8 py-4 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all hover:scale-105 text-lg"
+                  >
+                    Browse Reviews
+                  </Link>
+                  <Link
+                    href="/reviews/new"
+                    className="px-8 py-4 border-2 border-plague-lime text-plague-lime font-bold rounded-lg hover:bg-plague-lime/10 transition-colors text-lg"
+                  >
+                    Write a Review
+                  </Link>
+                </div>
+              </FadeIn>
 
-              <div className="pt-8 flex items-center justify-center gap-2 text-sm text-white/40">
-                <span>🐸</span>
-                <span>Powered by Plague & Exodus Plague NFTs</span>
-                <span>🐸</span>
-              </div>
+              <FadeIn delay={0.5}>
+                <div className="pt-8 flex items-center justify-center gap-2 text-sm text-white/40">
+                  <span>🐸</span>
+                  <span>Powered by Plague & Exodus Plague NFTs</span>
+                  <span>🐸</span>
+                </div>
+              </FadeIn>
             </div>
           </div>
         </section>
@@ -65,25 +75,28 @@ export default function Home() {
         {/* Categories Section */}
         <section className="py-16 px-4 bg-plague-darkGray">
           <div className="container mx-auto max-w-6xl">
-            <h2 className="text-3xl md:text-4xl font-tanker text-white text-center mb-12">
-              Browse by Category
-            </h2>
+            <FadeIn delay={0.2}>
+              <h2 className="text-3xl md:text-4xl font-tanker text-white text-center mb-12">
+                Browse by Category
+              </h2>
+            </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {categories.map((category) => (
-                <Link
-                  key={category.slug}
-                  href={`/reviews?category=${category.slug}`}
-                  className="group p-6 rounded-xl bg-plague-lightGray border border-white/10 hover:border-plague-lime transition-all hover:scale-105"
-                >
-                  <div className="text-4xl mb-3">{category.emoji}</div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-plague-lime transition-colors">
-                    {category.name}
-                  </h3>
-                  <p className="text-white/60 text-sm">{category.description}</p>
-                </Link>
+                <StaggerItem key={category.slug}>
+                  <Link
+                    href={`/reviews?category=${category.slug}`}
+                    className="group p-6 rounded-xl bg-plague-lightGray border border-white/10 hover:border-plague-lime transition-all hover:scale-105 block"
+                  >
+                    <div className="text-4xl mb-3">{category.emoji}</div>
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-plague-lime transition-colors">
+                      {category.name}
+                    </h3>
+                    <p className="text-white/60 text-sm">{category.description}</p>
+                  </Link>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
         </section>
 
