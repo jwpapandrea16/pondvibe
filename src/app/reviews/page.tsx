@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -25,7 +25,7 @@ interface Review {
   }
 }
 
-export default function ReviewsPage() {
+function ReviewsContent() {
   const searchParams = useSearchParams()
   const [reviews, setReviews] = useState<Review[]>([])
   const [total, setTotal] = useState(0)
