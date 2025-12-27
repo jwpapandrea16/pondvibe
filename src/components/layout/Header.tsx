@@ -15,17 +15,6 @@ export function Header() {
   const { signMessageAsync } = useSignMessage()
   const { showToast } = useToast()
 
-  // Auto-authenticate when wallet connects (only if not already authenticated)
-  useEffect(() => {
-    if (isConnected && address && !isAuthenticated) {
-      // Check if we have stored auth before triggering new authentication
-      const storedToken = localStorage.getItem('auth_token')
-      if (!storedToken) {
-        handleAuth()
-      }
-    }
-  }, [isConnected, address, isAuthenticated])
-
   const handleAuth = async () => {
     if (!address) return
 
@@ -84,6 +73,18 @@ export function Header() {
       showToast('Authentication failed. Please try again.', 'error', 5000)
     }
   }
+
+  // Auto-authenticate when wallet connects (only if not already authenticated)
+  useEffect(() => {
+    if (isConnected && address && !isAuthenticated) {
+      // Check if we have stored auth before triggering new authentication
+      const storedToken = localStorage.getItem('auth_token')
+      if (!storedToken) {
+        handleAuth()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, address, isAuthenticated])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
