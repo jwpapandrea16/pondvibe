@@ -20,25 +20,25 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-24 md:py-32 px-4">
-          <div className="absolute inset-0 bg-gradient-to-b from-plague-darkGray to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white to-plague-darkGray" />
 
           <div className="container relative mx-auto max-w-6xl">
             <div className="text-center space-y-8">
               <FadeIn delay={0.1}>
-                <h1 className="text-5xl md:text-7xl font-tanker text-white glow-lime">
+                <h1 className="text-5xl md:text-7xl font-tanker text-black glow-lime">
                   POND VIBE
                 </h1>
               </FadeIn>
 
               <FadeIn delay={0.2}>
-                <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+                <p className="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
                   Verified Reviews from the{' '}
-                  <span className="text-plague-lime font-semibold">Plague Community</span>
+                  <span className="text-plague-green font-semibold">Plague Community</span>
                 </p>
               </FadeIn>
 
               <FadeIn delay={0.3}>
-                <p className="text-lg text-white/60 max-w-2xl mx-auto">
+                <p className="text-lg text-black/60 max-w-2xl mx-auto">
                   Share and discover authentic reviews of TV shows, movies, books, sports teams, and travel destinations.
                   Powered by NFT verification.
                 </p>
@@ -48,13 +48,13 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
                   <Link
                     href="/reviews"
-                    className="px-8 py-4 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all hover:scale-105 text-lg"
+                    className="px-8 py-4 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-green transition-all hover:scale-105 text-lg"
                   >
                     Browse Reviews
                   </Link>
                   <Link
                     href="/reviews/new"
-                    className="px-8 py-4 border-2 border-plague-lime text-plague-lime font-bold rounded-lg hover:bg-plague-lime/10 transition-colors text-lg"
+                    className="px-8 py-4 border-2 border-plague-green text-plague-green font-bold rounded-lg hover:bg-plague-green/10 transition-colors text-lg"
                   >
                     Write a Review
                   </Link>
@@ -62,7 +62,7 @@ export default function Home() {
               </FadeIn>
 
               <FadeIn delay={0.5}>
-                <div className="pt-8 flex items-center justify-center gap-2 text-sm text-white/40">
+                <div className="pt-8 flex items-center justify-center gap-2 text-sm text-black/40">
                   <span>🐸</span>
                   <span>Powered by Plague & Exodus Plague NFTs</span>
                   <span>🐸</span>
@@ -76,7 +76,7 @@ export default function Home() {
         <section className="py-16 px-4 bg-plague-darkGray">
           <div className="container mx-auto max-w-6xl">
             <FadeIn delay={0.2}>
-              <h2 className="text-3xl md:text-4xl font-tanker text-white text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-tanker text-black text-center mb-12">
                 Browse by Category
               </h2>
             </FadeIn>
@@ -86,13 +86,13 @@ export default function Home() {
                 <StaggerItem key={category.slug}>
                   <Link
                     href={`/reviews?category=${category.slug}`}
-                    className="group p-6 rounded-xl bg-plague-lightGray border border-white/10 hover:border-plague-lime transition-all hover:scale-105 block"
+                    className="group p-6 rounded-xl bg-white border border-black/10 hover:border-plague-green transition-all hover:scale-105 block"
                   >
                     <div className="text-4xl mb-3">{category.emoji}</div>
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-plague-lime transition-colors">
+                    <h3 className="text-xl font-bold text-black mb-2 group-hover:text-plague-green transition-colors">
                       {category.name}
                     </h3>
-                    <p className="text-white/60 text-sm">{category.description}</p>
+                    <p className="text-black/60 text-sm">{category.description}</p>
                   </Link>
                 </StaggerItem>
               ))}
@@ -101,10 +101,10 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-16 px-4 bg-black">
+        <section className="py-16 px-4 bg-white">
           <div className="container mx-auto max-w-6xl">
             <FadeIn delay={0.2}>
-              <h2 className="text-3xl md:text-4xl font-tanker text-white text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-tanker text-black text-center mb-12">
                 How It Works
               </h2>
             </FadeIn>
@@ -112,11 +112,11 @@ export default function Home() {
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <StaggerItem>
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                    <span className="text-2xl">1</span>
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
+                    <span className="text-2xl font-bold text-black">1</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Connect Wallet</h3>
-                  <p className="text-white/60">
+                  <h3 className="text-xl font-bold text-black mb-2">Connect Wallet</h3>
+                  <p className="text-black/60">
                     Connect your Ethereum wallet to verify your Plague NFT ownership
                   </p>
                 </div>
@@ -124,11 +124,11 @@ export default function Home() {
 
               <StaggerItem>
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                    <span className="text-2xl">2</span>
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
+                    <span className="text-2xl font-bold text-black">2</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Write Reviews</h3>
-                  <p className="text-white/60">
+                  <h3 className="text-xl font-bold text-black mb-2">Write Reviews</h3>
+                  <p className="text-black/60">
                     Share your honest opinions and rate your favorite content
                   </p>
                 </div>
@@ -136,11 +136,11 @@ export default function Home() {
 
               <StaggerItem>
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                    <span className="text-2xl">3</span>
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
+                    <span className="text-2xl font-bold text-black">3</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Connect with Community</h3>
-                  <p className="text-white/60">
+                  <h3 className="text-xl font-bold text-black mb-2">Connect with Community</h3>
+                  <p className="text-black/60">
                     Follow other Plague holders and discover curated recommendations
                   </p>
                 </div>
