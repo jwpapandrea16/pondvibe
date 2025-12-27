@@ -84,9 +84,9 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.02, borderColor: 'rgba(200, 255, 0, 0.5)' }}
+      whileHover={{ scale: 1.02, borderColor: 'rgba(72, 144, 78, 0.5)' }}
       transition={{ duration: 0.3 }}
-      className="group p-6 rounded-xl bg-plague-lightGray border border-white/10"
+      className="group p-6 rounded-xl bg-plague-darkGray border border-black/10"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
@@ -95,16 +95,16 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
             href={`/profile/${review.users.wallet_address}`}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <div className="w-10 h-10 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-              <span className="text-plague-lime font-bold text-sm">
+            <div className="w-10 h-10 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
+              <span className="text-plague-green font-bold text-sm">
                 {review.users.username?.[0]?.toUpperCase() || review.users.wallet_address.slice(2, 4).toUpperCase()}
               </span>
             </div>
             <div>
-              <p className="text-white font-semibold text-sm">
+              <p className="text-black font-semibold text-sm">
                 {review.users.username || `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}`}
               </p>
-              <p className="text-white/40 text-xs">{formatDate(review.created_at)}</p>
+              <p className="text-black/40 text-xs">{formatDate(review.created_at)}</p>
             </div>
           </Link>
         </div>
@@ -116,28 +116,28 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
 
       {/* Rating */}
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-4xl font-tanker text-plague-lime">{review.rating.toFixed(1)}</span>
-        <span className="text-white/60 text-lg">/10</span>
+        <span className="text-4xl font-tanker text-plague-green">{review.rating.toFixed(1)}</span>
+        <span className="text-black/60 text-lg">/10</span>
       </div>
 
       {/* Content */}
       <Link href={`/reviews/${review.id}`} className="block mb-4">
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-plague-lime transition-colors">
+        <h3 className="text-xl font-bold text-black mb-2 group-hover:text-plague-green transition-colors">
           {review.title}
         </h3>
-        <p className="text-white/80 text-sm mb-2">
-          <span className="text-white/60">Reviewing:</span> {review.subject_name}
+        <p className="text-black/80 text-sm mb-2">
+          <span className="text-black/60">Reviewing:</span> {review.subject_name}
         </p>
-        <p className="text-white/70 text-sm leading-relaxed">
+        <p className="text-black/70 text-sm leading-relaxed">
           {truncateContent(review.content)}
         </p>
       </Link>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-4 border-t border-white/10">
+      <div className="flex items-center justify-between pt-4 border-t border-black/10">
         <Link
           href={`/reviews/${review.id}`}
-          className="text-plague-lime text-sm font-semibold hover:text-plague-yellow transition-colors"
+          className="text-plague-green text-sm font-semibold hover:text-plague-green/80 transition-colors"
         >
           Read full review →
         </Link>
@@ -147,8 +147,8 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
           disabled={!isAuthenticated || isLiking}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
             isLiked
-              ? 'bg-plague-lime/20 text-plague-lime'
-              : 'bg-white/5 text-white/60 hover:bg-white/10'
+              ? 'bg-plague-green/20 text-plague-green'
+              : 'bg-black/5 text-black/60 hover:bg-black/10'
           } ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
         >
           <span className={isLiked ? '❤️' : '🤍'}>
