@@ -20,33 +20,53 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-    // Load user and token from localStorage on mount
-    const storedToken = localStorage.getItem('auth_token')
-    const storedUser = localStorage.getItem('auth_user')
+    // Only access localStorage on client side
+    if (typeof window === 'undefined') return
 
-    if (storedToken && storedUser) {
-      setToken(storedToken)
-      setUser(JSON.parse(storedUser))
+    try {
+      // Load user and token from localStorage on mount
+      const storedToken = localStorage.getItem('auth_token')
+      const storedUser = localStorage.getItem('auth_user')
+
+      if (storedToken && storedUser) {
+        setToken(storedToken)
+        try {
+          const parsedUser = JSON.parse(storedUser)
+          setUser(parsedUser)
+        } catch (e) {
+          console.error('Failed to parse stored user:', e)
+          localStorage.removeItem('auth_user')
+          localStorage.removeItem('auth_token')
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load auth from localStorage:', e)
     }
   }, [])
 
   const login = (newToken: string, newUser: User) => {
     setToken(newToken)
     setUser(newUser)
-    localStorage.setItem('auth_token', newToken)
-    localStorage.setItem('auth_user', JSON.stringify(newUser))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('auth_token', newToken)
+      localStorage.setItem('auth_user', JSON.stringify(newUser))
+    }
   }
 
   const logout = () => {
     setToken(null)
     setUser(null)
-    localStorage.removeItem('auth_token')
-    localStorage.removeItem('auth_user')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_user')
+    }
   }
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser)
-    localStorage.setItem('auth_user', JSON.stringify(updatedUser))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('auth_user', JSON.stringify(updatedUser))
+    }
   }
 
   const isAuthenticated = !!user && !!token
