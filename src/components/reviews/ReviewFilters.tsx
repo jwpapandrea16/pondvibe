@@ -7,7 +7,6 @@ const categories = [
   { name: 'TV Shows', slug: 'tv_show', emoji: '📺' },
   { name: 'Movies', slug: 'movie', emoji: '🎬' },
   { name: 'Books', slug: 'book', emoji: '📚' },
-  { name: 'Sports Teams', slug: 'sports_team', emoji: '⚽' },
   { name: 'Travel', slug: 'travel_destination', emoji: '✈️' },
 ]
 
