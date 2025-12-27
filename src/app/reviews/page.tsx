@@ -183,3 +183,23 @@ function ReviewsContent() {
     </div>
   )
 }
+
+export default function ReviewsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col bg-white">
+        <Header />
+        <main className="flex-1 py-12 px-4">
+          <div className="container mx-auto max-w-7xl">
+            <div className="p-12 rounded-xl bg-plague-darkGray text-center">
+              <p className="text-black/60">Loading reviews...</p>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    }>
+      <ReviewsContent />
+    </Suspense>
+  )
+}
