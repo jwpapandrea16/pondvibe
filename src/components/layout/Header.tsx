@@ -15,10 +15,14 @@ export function Header() {
   const { signMessageAsync } = useSignMessage()
   const { showToast } = useToast()
 
-  // Auto-authenticate when wallet connects
+  // Auto-authenticate when wallet connects (only if not already authenticated)
   useEffect(() => {
     if (isConnected && address && !isAuthenticated) {
-      handleAuth()
+      // Check if we have stored auth before triggering new authentication
+      const storedToken = localStorage.getItem('auth_token')
+      if (!storedToken) {
+        handleAuth()
+      }
     }
   }, [isConnected, address, isAuthenticated])
 
