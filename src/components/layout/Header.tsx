@@ -57,6 +57,11 @@ export function Header() {
         body: JSON.stringify({ message: preparedMessage, signature }),
       })
 
+      if (!verifyRes.ok) {
+        const errorData = await verifyRes.json()
+        throw new Error(errorData.error || 'Authentication failed')
+      }
+
       const { token, user } = await verifyRes.json()
       login(token, user)
 
