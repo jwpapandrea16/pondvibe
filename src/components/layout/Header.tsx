@@ -3,6 +3,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
+import { useToast } from '@/contexts/ToastContext'
 import { useAccount } from 'wagmi'
 import { useEffect } from 'react'
 import { SiweMessage } from 'siwe'
@@ -12,6 +13,7 @@ export function Header() {
   const { isAuthenticated, canCreateReview, login } = useAuth()
   const { address, isConnected } = useAccount()
   const { signMessageAsync } = useSignMessage()
+  const { showToast } = useToast()
 
   // Auto-authenticate when wallet connects
   useEffect(() => {
