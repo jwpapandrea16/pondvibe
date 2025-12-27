@@ -155,12 +155,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                     Edit Profile
                   </button>
                 ) : (
-                  <button
-                    onClick={onFollowToggle}
-                    className="px-6 py-2 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all"
-                  >
-                    Follow
-                  </button>
+                  <FollowButton userId={user.id} onFollowChange={onFollowToggle} />
                 )}
               </div>
 
