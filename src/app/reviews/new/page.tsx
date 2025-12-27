@@ -5,22 +5,22 @@ import { CreateReviewGuard } from '@/components/reviews/CreateReviewGuard'
 
 export default function NewReviewPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 py-12 px-4">
         <div className="container mx-auto max-w-4xl">
           <CreateReviewGuard>
             <div className="mb-8">
-              <h1 className="text-4xl md:text-5xl font-tanker text-white glow-lime mb-4">
+              <h1 className="text-4xl md:text-5xl font-tanker text-black mb-4">
                 Write a Review
               </h1>
-              <p className="text-white/60 text-lg">
+              <p className="text-black/60 text-lg">
                 Share your authentic thoughts with the Plague community
               </p>
             </div>
 
-            <div className="p-8 rounded-xl bg-plague-darkGray border border-white/10">
+            <div className="p-8 rounded-xl bg-plague-darkGray border border-black/10">
               <ReviewForm mode="create" />
             </div>
           </CreateReviewGuard>
