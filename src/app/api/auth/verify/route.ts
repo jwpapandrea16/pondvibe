@@ -16,9 +16,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify SIWE signature
+    console.log('Verifying SIWE signature...')
     const verified = await verifySiweMessage(message, signature)
 
     if (!verified) {
+      console.error('SIWE signature verification failed')
       return NextResponse.json(
         { error: 'Invalid signature' },
         { status: 401 }
@@ -26,14 +28,20 @@ export async function POST(request: NextRequest) {
     }
 
     const walletAddress = verified.address.toLowerCase()
+    console.log('Wallet verified:', walletAddress)
 
     // Check Plague NFT ownership
+    console.log('Checking Plague NFT ownership...')
     const hasPlagueNFT = await checkPlagueOwnership(walletAddress)
+    console.log('Has Plague NFT:', hasPlagueNFT)
 
     // Fetch all user NFTs
+    console.log('Fetching user NFTs...')
     const nfts = await getUserNFTs(walletAddress)
+    console.log('NFTs found:', nfts.length)
 
     // Get Supabase client
+    console.log('Connecting to Supabase...')
     const supabase = await createClient()
 
     // Check if user exists
@@ -46,6 +54,7 @@ export async function POST(request: NextRequest) {
     let user
 
     if (existingUser) {
+      console.log('Updating existing user...')
       // Update existing user
       const { data: updatedUser, error } = await supabase
         .from('users')
@@ -58,9 +67,13 @@ export async function POST(request: NextRequest) {
         .select()
         .single()
 
-      if (error) throw error
+      if (error) {
+        console.error('Error updating user:', error)
+        throw error
+      }
       user = updatedUser
     } else {
+      console.log('Creating new user...')
       // Create new user
       const { data: newUser, error } = await supabase
         .from('users')
@@ -72,7 +85,10 @@ export async function POST(request: NextRequest) {
         .select()
         .single()
 
-      if (error) throw error
+      if (error) {
+        console.error('Error creating user:', error)
+        throw error
+      }
       user = newUser
     }
 
@@ -103,6 +119,7 @@ export async function POST(request: NextRequest) {
       hasPlagueNFT: user.has_plague_nft,
     })
 
+    console.log('Authentication successful for:', walletAddress)
     return NextResponse.json({
       token,
       user,
@@ -111,7 +128,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Auth verification error:', error)
     return NextResponse.json(
-      { error: 'Authentication failed' },
+      { error: 'Authentication failed', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
