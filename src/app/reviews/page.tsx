@@ -85,17 +85,17 @@ function ReviewsContent() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 py-12 px-4">
         <div className="container mx-auto max-w-7xl">
           {/* Page Header */}
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-tanker text-white glow-lime mb-4">
+            <h1 className="text-4xl md:text-5xl font-tanker text-black mb-4">
               {category ? getCategoryName(category) : 'All Reviews'}
             </h1>
-            <p className="text-white/60 text-lg">
+            <p className="text-black/60 text-lg">
               Discover authentic reviews from the Plague community
             </p>
           </div>
@@ -103,8 +103,8 @@ function ReviewsContent() {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Filters Sidebar */}
             <aside className="lg:col-span-1">
-              <div className="sticky top-24 p-6 rounded-xl bg-plague-darkGray border border-white/10">
-                <h2 className="text-xl font-tanker text-white mb-6">Filters</h2>
+              <div className="sticky top-24 p-6 rounded-xl bg-plague-darkGray border border-black/10">
+                <h2 className="text-xl font-tanker text-black mb-6">Filters</h2>
                 <ReviewFilters />
               </div>
             </aside>
@@ -116,25 +116,25 @@ function ReviewsContent() {
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
-                      className="h-64 rounded-xl bg-plague-lightGray animate-pulse"
+                      className="h-64 rounded-xl bg-plague-darkGray animate-pulse"
                     />
                   ))}
                 </div>
               ) : error ? (
-                <div className="p-8 rounded-xl bg-plague-lightGray border border-red-500">
+                <div className="p-8 rounded-xl bg-white border border-red-500">
                   <p className="text-red-500 text-center">{error}</p>
                 </div>
               ) : reviews.length === 0 ? (
-                <div className="p-12 rounded-xl bg-plague-lightGray border border-white/10 text-center">
-                  <p className="text-white/60 text-lg mb-4">No reviews found</p>
-                  <p className="text-white/40">
+                <div className="p-12 rounded-xl bg-plague-darkGray border border-black/10 text-center">
+                  <p className="text-black/60 text-lg mb-4">No reviews found</p>
+                  <p className="text-black/40">
                     Try adjusting your filters or be the first to write a review!
                   </p>
                 </div>
               ) : (
                 <>
                   {/* Results Count */}
-                  <div className="mb-6 text-white/60">
+                  <div className="mb-6 text-black/60">
                     Showing {offset + 1} - {Math.min(offset + limit, total)} of {total} reviews
                   </div>
 
@@ -154,7 +154,7 @@ function ReviewsContent() {
                             ...Object.fromEntries(searchParams.entries()),
                             offset: (offset - limit).toString(),
                           }).toString()}`}
-                          className="px-6 py-3 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all"
+                          className="px-6 py-3 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all"
                         >
                           ← Previous
                         </a>
@@ -165,7 +165,7 @@ function ReviewsContent() {
                             ...Object.fromEntries(searchParams.entries()),
                             offset: (offset + limit).toString(),
                           }).toString()}`}
-                          className="px-6 py-3 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all"
+                          className="px-6 py-3 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all"
                         >
                           Next →
                         </a>
