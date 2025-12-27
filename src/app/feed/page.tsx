@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -27,7 +27,7 @@ interface Review {
   }
 }
 
-export default function FeedPage() {
+function FeedContent() {
   const { token, isAuthenticated } = useAuth()
   const searchParams = useSearchParams()
   const [reviews, setReviews] = useState<Review[]>([])
@@ -209,5 +209,25 @@ export default function FeedPage() {
 
       <Footer />
     </div>
+  )
+}
+
+export default function FeedPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col bg-white">
+        <Header />
+        <main className="flex-1 py-12 px-4">
+          <div className="container mx-auto max-w-4xl">
+            <div className="p-12 rounded-xl bg-plague-darkGray text-center">
+              <p className="text-black/60">Loading feed...</p>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    }>
+      <FeedContent />
+    </Suspense>
   )
 }
