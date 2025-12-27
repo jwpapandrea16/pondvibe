@@ -87,7 +87,7 @@ export function Header() {
               {canCreateReview && (
                 <Link
                   href="/reviews/new"
-                  className="px-4 py-2 rounded-lg bg-plague-lime text-black font-semibold hover:bg-plague-green hover:text-white transition-colors"
+                  className="px-4 py-2 rounded-lg bg-plague-green text-white font-semibold hover:bg-plague-green/80 transition-colors"
                 >
                   Write Review
                 </Link>

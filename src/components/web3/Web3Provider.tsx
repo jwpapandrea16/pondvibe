@@ -21,9 +21,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
-          theme={darkTheme({
-            accentColor: '#C8FF00',
-            accentColorForeground: '#000000',
+          theme={lightTheme({
+            accentColor: '#48904E',
+            accentColorForeground: '#ffffff',
             borderRadius: 'medium',
             fontStack: 'system',
           })}
