@@ -59,11 +59,11 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-plague-lightGray bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-black/80">
+    <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="container flex h-16 items-center justify-between px-4 mx-auto max-w-7xl">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-          <span className="text-2xl font-tanker text-plague-lime glow-lime">
+          <span className="text-2xl font-tanker text-plague-green">
             POND VIBE
           </span>
         </Link>
@@ -72,7 +72,7 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <Link
             href="/reviews"
-            className="text-white/80 hover:text-plague-lime transition-colors"
+            className="text-black/80 hover:text-plague-green transition-colors"
           >
             Reviews
           </Link>
@@ -80,14 +80,14 @@ export function Header() {
             <>
               <Link
                 href="/feed"
-                className="text-white/80 hover:text-plague-lime transition-colors"
+                className="text-black/80 hover:text-plague-green transition-colors"
               >
                 Feed
               </Link>
               {canCreateReview && (
                 <Link
                   href="/reviews/new"
-                  className="px-4 py-2 rounded-lg bg-plague-lime text-black font-semibold hover:bg-plague-yellow transition-colors"
+                  className="px-4 py-2 rounded-lg bg-plague-lime text-black font-semibold hover:bg-plague-green hover:text-white transition-colors"
                 >
                   Write Review
                 </Link>
