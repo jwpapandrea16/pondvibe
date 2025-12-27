@@ -127,8 +127,9 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Auth verification error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return NextResponse.json(
-      { error: 'Authentication failed', details: error instanceof Error ? error.message : 'Unknown error' },
+      { error: 'Authentication failed', details: errorMessage },
       { status: 500 }
     )
   }
