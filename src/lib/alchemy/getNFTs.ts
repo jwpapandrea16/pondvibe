@@ -22,14 +22,19 @@ export async function getUserNFTs(walletAddress: string): Promise<NFTData[]> {
       omitMetadata: false,
     })
 
-    return nfts.ownedNfts.map((nft) => ({
-      contractAddress: nft.contract.address,
-      tokenId: nft.tokenId,
-      collectionName: nft.contract.name || 'Unknown',
-      collectionSlug: nft.contract.symbol?.toLowerCase() || '',
-      imageUrl: nft.media[0]?.gateway || nft.media[0]?.raw || '',
-      tokenType: nft.tokenType,
-    }))
+    return nfts.ownedNfts.map((nft) => {
+      // Safely access image data
+      const imageUrl = nft.image?.thumbnailUrl || nft.image?.cachedUrl || nft.image?.originalUrl || ''
+
+      return {
+        contractAddress: nft.contract.address,
+        tokenId: nft.tokenId,
+        collectionName: nft.contract.name || 'Unknown',
+        collectionSlug: nft.contract.symbol?.toLowerCase() || '',
+        imageUrl,
+        tokenType: nft.tokenType,
+      }
+    })
   } catch (error) {
     console.error('Error fetching NFTs:', error)
     throw error
