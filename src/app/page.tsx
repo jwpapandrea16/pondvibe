@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { FadeIn } from '@/components/animations/FadeIn'
+import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer'
 
 const categories = [
   { name: 'TV Shows', slug: 'tv_show', emoji: '📺', description: 'Series & streaming content' },

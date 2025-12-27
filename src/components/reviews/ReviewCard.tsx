@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { motion } from 'framer-motion'
 
 interface Review {
   id: string
@@ -80,7 +81,13 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
   }
 
   return (
-    <div className="group p-6 rounded-xl bg-plague-lightGray border border-white/10 hover:border-plague-lime transition-all hover:scale-[1.02]">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02, borderColor: 'rgba(200, 255, 0, 0.5)' }}
+      transition={{ duration: 0.3 }}
+      className="group p-6 rounded-xl bg-plague-lightGray border border-white/10"
+    >
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
@@ -150,6 +157,6 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
           <span className="text-sm font-semibold">{likesCount}</span>
         </button>
       </div>
-    </div>
+    </motion.div>
   )
 }
