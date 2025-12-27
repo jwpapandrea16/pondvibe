@@ -1,16 +1,52 @@
 'use client'
 
 import '@rainbow-me/rainbowkit/styles.css'
-import { getDefaultConfig, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
-import { WagmiProvider } from 'wagmi'
+import {
+  RainbowKitProvider,
+  lightTheme,
+  connectorsForWallets
+} from '@rainbow-me/rainbowkit'
+import {
+  metaMaskWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+  rainbowWallet,
+  phantomWallet,
+  trustWallet,
+  ledgerWallet,
+} from '@rainbow-me/rainbowkit/wallets'
+import { WagmiProvider, createConfig, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactNode } from 'react'
 
-const config = getDefaultConfig({
-  appName: 'Pond Vibe - Verified Reviews',
-  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Popular',
+      wallets: [
+        metaMaskWallet,
+        phantomWallet,
+        coinbaseWallet,
+        walletConnectWallet,
+        rainbowWallet,
+        trustWallet,
+        ledgerWallet,
+      ],
+    },
+  ],
+  {
+    appName: 'Pond Vibe - Verified Reviews',
+    projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+  }
+)
+
+const config = createConfig({
+  connectors,
   chains: [mainnet],
+  transports: {
+    [mainnet.id]: http(),
+  },
   ssr: true,
 })
 
