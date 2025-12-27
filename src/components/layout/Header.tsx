@@ -55,8 +55,24 @@ export function Header() {
 
       const { token, user } = await verifyRes.json()
       login(token, user)
+
+      // Show appropriate message based on NFT ownership
+      if (user.has_plague_nft) {
+        showToast(
+          'Welcome! You are verified and can write reviews.',
+          'success',
+          6000
+        )
+      } else {
+        showToast(
+          'Thank you for connecting! However, you do not hold a necessary NFT to write reviews. In the meantime, enjoy reading our verified reviews!',
+          'info',
+          8000
+        )
+      }
     } catch (error) {
       console.error('Authentication failed:', error)
+      showToast('Authentication failed. Please try again.', 'error', 5000)
     }
   }
 
