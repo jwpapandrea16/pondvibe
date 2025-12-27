@@ -8,7 +8,6 @@ const categories = [
   { name: 'TV Shows', slug: 'tv_show', emoji: '📺', description: 'Series & streaming content' },
   { name: 'Movies', slug: 'movie', emoji: '🎬', description: 'Films & cinema' },
   { name: 'Books', slug: 'book', emoji: '📚', description: 'Literature & reading' },
-  { name: 'Sports Teams', slug: 'sports_team', emoji: '⚽', description: 'Teams & athletics' },
   { name: 'Travel', slug: 'travel_destination', emoji: '✈️', description: 'Destinations & experiences' },
 ]
 
@@ -32,8 +31,8 @@ export default function Home() {
 
               <FadeIn delay={0.2}>
                 <p className="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
-                  Verified Reviews from the{' '}
-                  <span className="text-plague-green font-semibold">Plague Community</span>
+                  Verified Reviews from your favorite{' '}
+                  <span className="text-plague-green font-semibold">Communities</span>
                 </p>
               </FadeIn>
 
@@ -64,7 +63,7 @@ export default function Home() {
               <FadeIn delay={0.5}>
                 <div className="pt-8 flex items-center justify-center gap-2 text-sm text-black/40">
                   <span>🐸</span>
-                  <span>Powered by Plague & Exodus Plague NFTs</span>
+                  <span>Powered by the Exodus Plague</span>
                   <span>🐸</span>
                 </div>
               </FadeIn>
