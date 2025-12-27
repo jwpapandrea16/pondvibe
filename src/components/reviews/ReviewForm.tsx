@@ -103,10 +103,10 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Category Selection */}
       <div>
-        <label className="block text-white font-semibold mb-3">
+        <label className="block text-black font-semibold mb-3">
           Category <span className="text-red-500">*</span>
         </label>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {categories.map((cat) => (
             <button
               key={cat.slug}
@@ -114,8 +114,8 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
               onClick={() => handleChange('category', cat.slug)}
               className={`p-4 rounded-lg border-2 transition-all ${
                 formData.category === cat.slug
-                  ? 'border-plague-lime bg-plague-lime/10 text-plague-lime'
-                  : 'border-white/10 bg-plague-lightGray text-white/60 hover:border-white/30'
+                  ? 'border-plague-green bg-plague-green/10 text-plague-green'
+                  : 'border-black/10 bg-white text-black/60 hover:border-black/30'
               }`}
             >
               <div className="text-3xl mb-2">{cat.emoji}</div>
@@ -128,7 +128,7 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
 
       {/* Title */}
       <div>
-        <label htmlFor="title" className="block text-white font-semibold mb-2">
+        <label htmlFor="title" className="block text-black font-semibold mb-2">
           Review Title <span className="text-red-500">*</span>
         </label>
         <input
@@ -137,14 +137,14 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
           value={formData.title}
           onChange={(e) => handleChange('title', e.target.value)}
           placeholder="e.g., A Masterpiece of Modern Television"
-          className="w-full px-4 py-3 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none transition-colors"
+          className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none transition-colors"
         />
         {errors.title && <p className="text-red-500 text-sm mt-2">{errors.title}</p>}
       </div>
 
       {/* Subject Name */}
       <div>
-        <label htmlFor="subject_name" className="block text-white font-semibold mb-2">
+        <label htmlFor="subject_name" className="block text-black font-semibold mb-2">
           What are you reviewing? <span className="text-red-500">*</span>
         </label>
         <input
@@ -152,15 +152,15 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
           type="text"
           value={formData.subject_name}
           onChange={(e) => handleChange('subject_name', e.target.value)}
-          placeholder="e.g., Breaking Bad, The Great Gatsby, Lakers"
-          className="w-full px-4 py-3 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none transition-colors"
+          placeholder="e.g., Breaking Bad, The Great Gatsby, Paris"
+          className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none transition-colors"
         />
         {errors.subject_name && <p className="text-red-500 text-sm mt-2">{errors.subject_name}</p>}
       </div>
 
       {/* Rating */}
       <div>
-        <label htmlFor="rating" className="block text-white font-semibold mb-2">
+        <label htmlFor="rating" className="block text-black font-semibold mb-2">
           Rating <span className="text-red-500">*</span>
         </label>
         <div className="flex items-center gap-4">
@@ -172,11 +172,11 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
             step="0.1"
             value={formData.rating}
             onChange={(e) => handleChange('rating', parseFloat(e.target.value))}
-            className="flex-1 h-2 bg-plague-lightGray rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-plague-lime [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-plague-lime [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
+            className="flex-1 h-2 bg-black/10 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-plague-green [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-plague-green [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
           />
           <div className="flex items-center gap-1 min-w-[80px]">
-            <span className="text-3xl font-tanker text-plague-lime">{formData.rating.toFixed(1)}</span>
-            <span className="text-white/60 text-lg">/10</span>
+            <span className="text-3xl font-tanker text-plague-green">{formData.rating.toFixed(1)}</span>
+            <span className="text-black/60 text-lg">/10</span>
           </div>
         </div>
         {errors.rating && <p className="text-red-500 text-sm mt-2">{errors.rating}</p>}
@@ -184,7 +184,7 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
 
       {/* Content */}
       <div>
-        <label htmlFor="content" className="block text-white font-semibold mb-2">
+        <label htmlFor="content" className="block text-black font-semibold mb-2">
           Your Review <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -193,14 +193,14 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
           onChange={(e) => handleChange('content', e.target.value)}
           placeholder="Share your honest thoughts and experiences..."
           rows={10}
-          className="w-full px-4 py-3 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none transition-colors resize-none"
+          className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none transition-colors resize-none"
         />
         {errors.content && <p className="text-red-500 text-sm mt-2">{errors.content}</p>}
       </div>
 
       {/* NFT Gate Collection (Optional) */}
       <div>
-        <label htmlFor="nft_gate_collection" className="block text-white font-semibold mb-2">
+        <label htmlFor="nft_gate_collection" className="block text-black font-semibold mb-2">
           NFT Collection Filter (Optional)
         </label>
         <input
@@ -209,9 +209,9 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
           value={formData.nft_gate_collection}
           onChange={(e) => handleChange('nft_gate_collection', e.target.value)}
           placeholder="e.g., 0x... (contract address)"
-          className="w-full px-4 py-3 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none transition-colors"
+          className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none transition-colors"
         />
-        <p className="text-white/40 text-xs mt-2">
+        <p className="text-black/40 text-xs mt-2">
           Optionally filter this review to show only to holders of a specific NFT collection
         </p>
       </div>
@@ -228,14 +228,14 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 px-6 py-4 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="flex-1 px-6 py-4 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {isSubmitting ? 'Saving...' : mode === 'edit' ? 'Update Review' : 'Publish Review'}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-6 py-4 border-2 border-white/10 text-white font-bold rounded-lg hover:border-white/30 transition-colors"
+          className="px-6 py-4 border-2 border-black/20 text-black font-bold rounded-lg hover:border-black/40 transition-colors"
         >
           Cancel
         </button>
