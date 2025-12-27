@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { motion } from 'framer-motion'
 
 interface FollowButtonProps {
   userId: string
@@ -58,9 +59,12 @@ export function FollowButton({ userId, initialFollowing = false, onFollowChange 
   }
 
   return (
-    <button
+    <motion.button
       onClick={handleToggleFollow}
       disabled={isLoading}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.2 }}
       className={`px-6 py-2 font-bold rounded-lg transition-all disabled:opacity-50 ${
         isFollowing
           ? 'bg-white/5 text-white hover:bg-white/10 border-2 border-white/10'
@@ -68,6 +72,6 @@ export function FollowButton({ userId, initialFollowing = false, onFollowChange 
       }`}
     >
       {isLoading ? '...' : isFollowing ? 'Following' : 'Follow'}
-    </button>
+    </motion.button>
   )
 }

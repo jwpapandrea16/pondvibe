@@ -103,41 +103,49 @@ export default function Home() {
         {/* How It Works Section */}
         <section className="py-16 px-4 bg-black">
           <div className="container mx-auto max-w-6xl">
-            <h2 className="text-3xl md:text-4xl font-tanker text-white text-center mb-12">
-              How It Works
-            </h2>
+            <FadeIn delay={0.2}>
+              <h2 className="text-3xl md:text-4xl font-tanker text-white text-center mb-12">
+                How It Works
+              </h2>
+            </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                  <span className="text-2xl">1</span>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <StaggerItem>
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
+                    <span className="text-2xl">1</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Connect Wallet</h3>
+                  <p className="text-white/60">
+                    Connect your Ethereum wallet to verify your Plague NFT ownership
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Connect Wallet</h3>
-                <p className="text-white/60">
-                  Connect your Ethereum wallet to verify your Plague NFT ownership
-                </p>
-              </div>
+              </StaggerItem>
 
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                  <span className="text-2xl">2</span>
+              <StaggerItem>
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
+                    <span className="text-2xl">2</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Write Reviews</h3>
+                  <p className="text-white/60">
+                    Share your honest opinions and rate your favorite content
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Write Reviews</h3>
-                <p className="text-white/60">
-                  Share your honest opinions and rate your favorite content
-                </p>
-              </div>
+              </StaggerItem>
 
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                  <span className="text-2xl">3</span>
+              <StaggerItem>
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
+                    <span className="text-2xl">3</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Connect with Community</h3>
+                  <p className="text-white/60">
+                    Follow other Plague holders and discover curated recommendations
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Connect with Community</h3>
-                <p className="text-white/60">
-                  Follow other Plague holders and discover curated recommendations
-                </p>
-              </div>
-            </div>
+              </StaggerItem>
+            </StaggerContainer>
           </div>
         </section>
       </main>
