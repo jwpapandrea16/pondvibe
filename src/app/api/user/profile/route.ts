@@ -18,7 +18,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { username, bio, profile_image_url, interests } = body
+    const { username, bio, profile_image_url, twitter_username, interests } = body
 
     // Validate interests structure if provided
     if (interests !== undefined) {
@@ -49,6 +49,7 @@ export async function PATCH(request: NextRequest) {
     if (username !== undefined) updateData.username = username
     if (bio !== undefined) updateData.bio = bio
     if (profile_image_url !== undefined) updateData.profile_image_url = profile_image_url
+    if (twitter_username !== undefined) updateData.twitter_username = twitter_username
     if (interests !== undefined) updateData.interests = interests
 
     // Update profile

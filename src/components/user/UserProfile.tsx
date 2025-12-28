@@ -11,6 +11,7 @@ interface User {
   wallet_address: string | null
   discord_id?: string | null
   discord_username?: string | null
+  twitter_username?: string | null
   username: string | null
   bio: string | null
   profile_image_url: string | null
@@ -41,6 +42,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
     username: user.username || '',
     bio: user.bio || '',
     profile_image_url: user.profile_image_url || '',
+    twitter_username: user.twitter_username || '',
     interests: user.interests || {},
   })
   const [isSaving, setIsSaving] = useState(false)
@@ -156,6 +158,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
         user.username = updated.username
         user.bio = updated.bio
         user.profile_image_url = updated.profile_image_url
+        user.twitter_username = updated.twitter_username
         user.interests = updated.interests
         updateUser(updated)
         setIsEditing(false)
@@ -293,6 +296,27 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-black mb-2">
+                    X (Twitter) Username
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black/40">@</span>
+                    <input
+                      type="text"
+                      value={editData.twitter_username}
+                      onChange={(e) => {
+                        // Remove @ symbol if user types it
+                        const value = e.target.value.replace('@', '')
+                        setEditData({ ...editData, twitter_username: value })
+                      }}
+                      placeholder="username"
+                      className="w-full pl-8 pr-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none"
+                      maxLength={15}
+                    />
+                  </div>
+                  <p className="text-xs text-black/50 mt-1">Your X (Twitter) handle without the @</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-black mb-2">
                     Interests
                   </label>
                   <UserInterests
@@ -316,6 +340,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                         username: user.username || '',
                         bio: user.bio || '',
                         profile_image_url: user.profile_image_url || '',
+                        twitter_username: user.twitter_username || '',
                         interests: user.interests || {},
                       })
                     }}
@@ -362,6 +387,23 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
 
                 {user.bio && (
                   <p className="text-black/80 mb-4">{user.bio}</p>
+                )}
+
+                {/* Social Links */}
+                {user.twitter_username && (
+                  <div className="mb-4">
+                    <a
+                      href={`https://x.com/${user.twitter_username}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-semibold"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      @{user.twitter_username}
+                    </a>
+                  </div>
                 )}
 
                 <div className="flex items-center gap-4 text-sm text-black/60">
