@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
           profile_image_url,
           has_plague_nft
         )
-      `)
+      `, { count: 'exact' })
       .range(offset, offset + limit - 1)
 
     // Apply filters
