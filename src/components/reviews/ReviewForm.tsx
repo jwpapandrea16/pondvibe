@@ -76,7 +76,7 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
     setFormData(prev => {
       // Reset subcategory when category changes
       if (field === 'category') {
-        return { ...prev, [field]: value, subcategory: '' }
+        return { ...prev, [field]: value as string, subcategory: '' }
       }
       return { ...prev, [field]: value }
     })
