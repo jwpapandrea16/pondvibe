@@ -275,3 +275,4 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
       </div>
     </div>
   )
+}
