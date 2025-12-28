@@ -22,29 +22,25 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-white to-plague-darkGray" />
 
           <div className="container relative mx-auto max-w-6xl">
-            <div className="text-center space-y-8">
+            <div className="flex flex-col items-center space-y-8">
               <FadeIn delay={0.1}>
-                <h1 className="text-5xl md:text-7xl font-tanker text-black glow-lime">
+                <h1 className="text-5xl md:text-7xl font-tanker text-black glow-lime text-center">
                   POND VIBE
                 </h1>
               </FadeIn>
 
               <FadeIn delay={0.2}>
-                <div className="flex justify-center">
-                  <p className="text-xl md:text-2xl text-black/80 max-w-3xl text-center">
-                    Verified Reviews from your favorite{' '}
-                    <span className="text-plague-green font-semibold">NFT Communities</span>
-                  </p>
-                </div>
+                <p className="text-xl md:text-2xl text-black/80 max-w-3xl text-center w-full px-4">
+                  Verified Reviews from your favorite{' '}
+                  <span className="text-plague-green font-semibold">NFT Communities</span>
+                </p>
               </FadeIn>
 
               <FadeIn delay={0.3}>
-                <div className="flex justify-center">
-                  <p className="text-lg text-black/60 max-w-2xl text-center">
-                    Share and discover authentic reviews of TV shows, movies, books, and travel destinations.
-                    Powered by NFT verification.
-                  </p>
-                </div>
+                <p className="text-lg text-black/60 max-w-2xl text-center w-full px-4">
+                  Share and discover authentic reviews of TV shows, movies, books, and travel destinations.
+                  Powered by NFT verification.
+                </p>
               </FadeIn>
 
               <FadeIn delay={0.4}>
