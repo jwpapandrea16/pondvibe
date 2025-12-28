@@ -32,7 +32,7 @@ export default function Home() {
               <FadeIn delay={0.2}>
                 <p className="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
                   Verified Reviews from your favorite{' '}
-                  <span className="text-plague-green font-semibold">Communities</span>
+                  <span className="text-plague-green font-semibold">NFT Communities</span>
                 </p>
               </FadeIn>
 

@@ -110,14 +110,14 @@ export function Header() {
           >
             Users
           </Link>
+          <Link
+            href="/feed"
+            className="text-black/80 hover:text-plague-green transition-colors"
+          >
+            Feed
+          </Link>
           {isAuthenticated && (
             <>
-              <Link
-                href="/feed"
-                className="text-black/80 hover:text-plague-green transition-colors"
-              >
-                Feed
-              </Link>
               <Link
                 href={`/profile/${user?.wallet_address}`}
                 className="text-black/80 hover:text-plague-green transition-colors"
