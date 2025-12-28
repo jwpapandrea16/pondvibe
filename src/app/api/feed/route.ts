@@ -22,21 +22,11 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0')
     const category = searchParams.get('category')
     const nftContract = searchParams.get('nftContract')
+    const followingOnly = searchParams.get('followingOnly') === 'true'
 
     const supabase = await createClient()
 
-    // Get list of users that current user follows
-    const { data: followingData } = await supabase
-      .from('follows')
-      .select('following_id')
-      .eq('follower_id', payload.userId)
-
-    const followingIds = followingData?.map(f => f.following_id) || []
-
-    // Include current user's own reviews in the feed
-    const feedUserIds = [...followingIds, payload.userId]
-
-    // Get reviews from followed users AND current user
+    // Build the base query for all reviews
     let query = supabase
       .from('reviews')
       .select(`
@@ -49,7 +39,25 @@ export async function GET(request: NextRequest) {
           has_plague_nft
         )
       `, { count: 'exact' })
-      .in('user_id', feedUserIds)
+
+    // If followingOnly filter is enabled, filter to followed users
+    if (followingOnly) {
+      // Get list of users that current user follows
+      const { data: followingData } = await supabase
+        .from('follows')
+        .select('following_id')
+        .eq('follower_id', payload.userId)
+
+      const followingIds = followingData?.map(f => f.following_id) || []
+
+      // Include current user's own reviews in the feed
+      const feedUserIds = [...followingIds, payload.userId]
+
+      query = query.in('user_id', feedUserIds)
+    }
+
+    // Continue with pagination and ordering
+    query = query
       .range(offset, offset + limit - 1)
       .order('created_at', { ascending: false })
 
