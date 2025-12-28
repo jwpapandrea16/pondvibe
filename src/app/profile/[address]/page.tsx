@@ -127,7 +127,7 @@ export default function ProfilePage() {
                   : 'text-black/60 hover:text-black'
               }`}
             >
-              NFTs ({user.stats.nfts})
+              Pond Vibe NFTs ({user.stats.nfts})
             </button>
           </div>
 
