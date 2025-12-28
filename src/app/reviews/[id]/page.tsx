@@ -20,7 +20,9 @@ interface Review {
   updated_at: string
   users: {
     id: string
-    wallet_address: string
+    wallet_address: string | null
+    discord_id?: string | null
+    discord_username?: string | null
     username: string | null
     profile_image_url: string | null
     has_plague_nft: boolean
@@ -194,17 +196,28 @@ export default function ReviewDetailPage() {
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-3">
                 <Link
-                  href={`/profile/${review.users.wallet_address}`}
+                  href={`/profile/${review.users.wallet_address || review.users.discord_id}`}
                   className="flex items-center gap-3 hover:opacity-80 transition-opacity"
                 >
-                  <div className="w-12 h-12 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
-                    <span className="text-plague-green font-bold">
-                      {review.users.username?.[0]?.toUpperCase() || review.users.wallet_address.slice(2, 4).toUpperCase()}
-                    </span>
-                  </div>
+                  {review.users.profile_image_url ? (
+                    <img
+                      src={review.users.profile_image_url}
+                      alt={review.users.username || 'Profile'}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-plague-green"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
+                      <span className="text-plague-green font-bold">
+                        {review.users.username?.[0]?.toUpperCase() ||
+                         review.users.discord_username?.[0]?.toUpperCase() ||
+                         (review.users.wallet_address ? review.users.wallet_address.slice(2, 4).toUpperCase() : '?')}
+                      </span>
+                    </div>
+                  )}
                   <div>
                     <p className="text-black font-semibold">
-                      {review.users.username || `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}`}
+                      {review.users.discord_username || review.users.username ||
+                       (review.users.wallet_address ? `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}` : 'Anonymous')}
                     </p>
                     <p className="text-black/40 text-sm">{formatDate(review.created_at)}</p>
                   </div>
