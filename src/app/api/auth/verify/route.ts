@@ -8,6 +8,12 @@ export async function POST(request: NextRequest) {
   try {
     const { message, signature } = await request.json()
 
+    console.log('=== AUTH VERIFY DEBUG ===')
+    console.log('Message type:', typeof message)
+    console.log('Message length:', message?.length)
+    console.log('Message preview:', message?.substring(0, 200))
+    console.log('Signature:', signature?.substring(0, 20) + '...')
+
     if (!message || !signature) {
       return NextResponse.json(
         { error: 'Message and signature are required' },
