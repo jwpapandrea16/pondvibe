@@ -8,6 +8,7 @@ import { useAccount } from 'wagmi'
 import { useEffect } from 'react'
 import { SiweMessage } from 'siwe'
 import { useSignMessage } from 'wagmi'
+import { DiscordLoginButton } from '@/components/auth/DiscordLoginButton'
 
 export function Header() {
   const { isAuthenticated, canCreateReview, login, user } = useAuth()
@@ -136,8 +137,9 @@ export function Header() {
           )}
         </nav>
 
-        {/* Wallet Connect Button */}
-        <div className="flex items-center gap-4">
+        {/* Authentication Buttons */}
+        <div className="flex items-center gap-3">
+          {!isAuthenticated && <DiscordLoginButton />}
           <ConnectButton
             accountStatus={{
               smallScreen: 'avatar',
