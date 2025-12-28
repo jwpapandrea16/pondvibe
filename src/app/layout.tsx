@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ToastProvider } from "@/contexts/ToastContext";
+import { MobileRibbon } from "@/components/layout/MobileRibbon";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({
         <AuthProvider>
           <ToastProvider>
             {children}
+            <MobileRibbon />
           </ToastProvider>
         </AuthProvider>
       </body>
