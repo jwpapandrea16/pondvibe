@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Suspense } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -68,10 +69,10 @@ export default function Home() {
               </FadeIn>
 
               <FadeIn delay={0.5}>
-                <div className="pt-8 flex items-center justify-center gap-2 text-sm text-black/40">
-                  <span>🐸</span>
+                <div className="pt-8 flex items-center justify-center gap-3 text-sm text-black/40">
+                  <Image src="/elder.png" alt="Elder Frog" width={24} height={24} className="object-contain" />
                   <span>Powered by the Exodus Plague</span>
-                  <span>🐸</span>
+                  <Image src="/elder.png" alt="Elder Frog" width={24} height={24} className="object-contain" />
                 </div>
               </FadeIn>
             </div>
