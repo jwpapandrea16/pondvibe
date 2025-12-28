@@ -11,7 +11,9 @@ import { useAuth } from '@/contexts/AuthContext'
 
 interface User {
   id: string
-  wallet_address: string
+  wallet_address: string | null
+  discord_id?: string | null
+  discord_username?: string | null
   username: string | null
   bio: string | null
   profile_image_url: string | null
@@ -120,22 +122,26 @@ export default function ProfilePage() {
             >
               Reviews ({user.stats.reviews})
             </button>
-            <button
-              onClick={() => setActiveTab('nfts')}
-              className={`px-6 py-3 font-semibold transition-colors ${
-                activeTab === 'nfts'
-                  ? 'text-plague-green border-b-2 border-plague-green'
-                  : 'text-black/60 hover:text-black'
-              }`}
-            >
-              Pond Vibe NFTs ({user.stats.nfts})
-            </button>
+            {user.wallet_address && (
+              <button
+                onClick={() => setActiveTab('nfts')}
+                className={`px-6 py-3 font-semibold transition-colors ${
+                  activeTab === 'nfts'
+                    ? 'text-plague-green border-b-2 border-plague-green'
+                    : 'text-black/60 hover:text-black'
+                }`}
+              >
+                Pond Vibe NFTs ({user.stats.nfts})
+              </button>
+            )}
           </div>
 
           {/* Tab Content */}
           <div>
             {activeTab === 'reviews' && <UserReviews userId={user.id} tab="reviews" />}
-            {activeTab === 'nfts' && <UserNFTs userId={user.id} walletAddress={user.wallet_address} />}
+            {activeTab === 'nfts' && user.wallet_address && (
+              <UserNFTs userId={user.id} walletAddress={user.wallet_address} />
+            )}
           </div>
         </div>
       </main>
