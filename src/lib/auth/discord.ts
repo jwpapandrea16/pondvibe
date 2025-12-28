@@ -68,12 +68,23 @@ export async function exchangeCodeForToken(
     body: params.toString(),
   })
 
+  console.log('Discord token exchange response:', {
+    status: response.status,
+    statusText: response.statusText,
+    contentType: response.headers.get('content-type'),
+  })
+
   if (!response.ok) {
     const text = await response.text()
     console.error('Discord token exchange failed:', {
       status: response.status,
       statusText: response.statusText,
-      body: text
+      body: text,
+      requestParams: {
+        client_id: clientId,
+        redirect_uri: redirectUri,
+        code_length: code.length,
+      }
     })
     throw new Error(`Discord token exchange failed: ${response.status} - ${text}`)
   }
@@ -81,7 +92,7 @@ export async function exchangeCodeForToken(
   const contentType = response.headers.get('content-type')
   if (!contentType || !contentType.includes('application/json')) {
     const text = await response.text()
-    console.error('Discord API returned non-JSON response:', text)
+    console.error('Discord API returned non-JSON response:', text.substring(0, 500))
     throw new Error('Discord API returned invalid response format')
   }
 
