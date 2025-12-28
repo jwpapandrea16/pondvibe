@@ -95,11 +95,19 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
             href={`/profile/${review.users.wallet_address}`}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <div className="w-10 h-10 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
-              <span className="text-plague-green font-bold text-sm">
-                {review.users.username?.[0]?.toUpperCase() || review.users.wallet_address.slice(2, 4).toUpperCase()}
-              </span>
-            </div>
+            {review.users.profile_image_url ? (
+              <img
+                src={review.users.profile_image_url}
+                alt={review.users.username || 'Profile'}
+                className="w-10 h-10 rounded-full object-cover border-2 border-plague-green"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
+                <span className="text-plague-green font-bold text-sm">
+                  {review.users.username?.[0]?.toUpperCase() || review.users.wallet_address.slice(2, 4).toUpperCase()}
+                </span>
+              </div>
+            )}
             <div>
               <p className="text-black font-semibold text-sm">
                 {review.users.username || `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}`}
