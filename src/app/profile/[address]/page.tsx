@@ -1,5 +1,6 @@
 'use client'
 
+// User profile page with interests and similar users feature
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
