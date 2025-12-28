@@ -22,6 +22,8 @@ export async function GET(request: NextRequest) {
         users (
           id,
           wallet_address,
+          discord_id,
+          discord_username,
           username,
           profile_image_url,
           has_plague_nft
@@ -56,6 +58,31 @@ export async function GET(request: NextRequest) {
     if (error) {
       console.error('Error fetching reviews:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    // Fetch review counts for each unique user
+    if (data && data.length > 0) {
+      const userIds = [...new Set(data.map(r => r.user_id))]
+
+      const reviewCountsPromises = userIds.map(async (userId) => {
+        const { count } = await supabase
+          .from('reviews')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', userId)
+        return { userId, count: count || 0 }
+      })
+
+      const reviewCounts = await Promise.all(reviewCountsPromises)
+      const reviewCountMap = Object.fromEntries(
+        reviewCounts.map(({ userId, count }) => [userId, count])
+      )
+
+      // Add review_count to each user object
+      data.forEach(review => {
+        if (review.users) {
+          (review.users as any).review_count = reviewCountMap[review.user_id] || 0
+        }
+      })
     }
 
     return NextResponse.json({

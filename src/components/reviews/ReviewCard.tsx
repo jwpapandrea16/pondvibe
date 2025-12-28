@@ -16,10 +16,13 @@ interface Review {
   created_at: string
   users: {
     id: string
-    wallet_address: string
+    wallet_address: string | null
+    discord_id?: string | null
+    discord_username?: string | null
     username: string | null
     profile_image_url: string | null
     has_plague_nft: boolean
+    review_count?: number
   }
 }
 
