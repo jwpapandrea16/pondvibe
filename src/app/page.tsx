@@ -29,14 +29,14 @@ export default function Home() {
                 </h1>
               </FadeIn>
 
-              <FadeIn delay={0.2}>
+              <FadeIn delay={0.2} className="text-center">
                 <p className="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto text-center">
                   Verified Reviews from your favorite{' '}
                   <span className="text-plague-green font-semibold">NFT Communities</span>
                 </p>
               </FadeIn>
 
-              <FadeIn delay={0.3}>
+              <FadeIn delay={0.3} className="text-center">
                 <p className="text-lg text-black/60 max-w-2xl mx-auto text-center">
                   Share and discover authentic reviews of TV shows, movies, books, and travel destinations.
                   Powered by NFT verification.
