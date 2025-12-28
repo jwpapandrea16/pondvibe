@@ -3,7 +3,7 @@
  */
 
 const DISCORD_API_BASE = 'https://discord.com/api/v10'
-const DISCORD_OAUTH_BASE = 'https://discord.com/oauth2'
+const DISCORD_OAUTH_BASE = 'https://discord.com/api/oauth2'
 
 export interface DiscordUser {
   id: string
