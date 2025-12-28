@@ -65,7 +65,9 @@ export async function GET(request: NextRequest) {
       const { data: updatedUser, error } = await supabase
         .from('users')
         .update({
-          discord_username: `${discordUser.username}#${discordUser.discriminator}`,
+          discord_username: discordUser.discriminator !== '0'
+            ? `${discordUser.username}#${discordUser.discriminator}`
+            : discordUser.username,
           has_plague_nft: true, // Verified via Discord role
           updated_at: new Date().toISOString(),
         })
@@ -85,7 +87,9 @@ export async function GET(request: NextRequest) {
         .from('users')
         .insert({
           discord_id: discordUser.id,
-          discord_username: `${discordUser.username}#${discordUser.discriminator}`,
+          discord_username: discordUser.discriminator !== '0'
+            ? `${discordUser.username}#${discordUser.discriminator}`
+            : discordUser.username,
           has_plague_nft: true, // Verified via Discord role
         })
         .select()
