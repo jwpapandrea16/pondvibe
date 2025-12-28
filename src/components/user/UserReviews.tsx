@@ -76,8 +76,8 @@ export function UserReviews({ userId, tab }: UserReviewsProps) {
 
   if (reviews.length === 0) {
     return (
-      <div className="p-12 rounded-xl bg-plague-lightGray border border-white/10 text-center">
-        <p className="text-white/60 text-lg">
+      <div className="p-12 rounded-xl bg-plague-lightGray border border-black/10 text-center">
+        <p className="text-black/60 text-lg">
           {tab === 'reviews' ? 'No reviews yet' : 'No liked reviews yet'}
         </p>
       </div>
