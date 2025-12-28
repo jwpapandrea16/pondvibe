@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 
@@ -30,15 +30,39 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
 
   const [formData, setFormData] = useState({
     category: initialData?.category || '',
-    title: initialData?.title || '',
     subject_name: initialData?.subject_name || '',
     content: initialData?.content || '',
     rating: initialData?.rating || 5.0,
     nft_gate_collection: initialData?.nft_gate_collection || '',
   })
 
+  const [previousSubjects, setPreviousSubjects] = useState<string[]>([])
+  const [showDropdown, setShowDropdown] = useState(false)
+  const [isLoadingSubjects, setIsLoadingSubjects] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Fetch previously reviewed subjects when category changes
+  useEffect(() => {
+    if (formData.category && mode === 'create') {
+      fetchPreviousSubjects(formData.category)
+    }
+  }, [formData.category])
+
+  const fetchPreviousSubjects = async (category: string) => {
+    setIsLoadingSubjects(true)
+    try {
+      const response = await fetch(`/api/reviews/subjects?category=${category}`)
+      if (response.ok) {
+        const data = await response.json()
+        setPreviousSubjects(data.subjects || [])
+      }
+    } catch (error) {
+      console.error('Error fetching subjects:', error)
+    } finally {
+      setIsLoadingSubjects(false)
+    }
+  }
 
   const handleChange = (field: string, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -48,11 +72,18 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
     }
   }
 
+  const handleSubjectSelect = (subject: string) => {
+    setFormData(prev => ({ ...prev, subject_name: subject }))
+    setShowDropdown(false)
+    if (errors.subject_name) {
+      setErrors(prev => ({ ...prev, subject_name: '' }))
+    }
+  }
+
   const validate = () => {
     const newErrors: Record<string, string> = {}
 
     if (!formData.category) newErrors.category = 'Please select a category'
-    if (!formData.title.trim()) newErrors.title = 'Title is required'
     if (!formData.subject_name.trim()) newErrors.subject_name = 'Subject name is required'
     if (!formData.content.trim()) newErrors.content = 'Review content is required'
     if (formData.rating < 0 || formData.rating > 10) {
@@ -71,6 +102,15 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
     setIsSubmitting(true)
 
     try {
+      // Auto-generate title from category and subject
+      const categoryName = categories.find(c => c.slug === formData.category)?.name || 'Review'
+      const autoTitle = `${formData.subject_name} - ${categoryName} Review`
+
+      const submitData = {
+        ...formData,
+        title: autoTitle,
+      }
+
       const url = mode === 'edit' ? `/api/reviews/${initialData?.id}` : '/api/reviews'
       const method = mode === 'edit' ? 'PATCH' : 'POST'
 
@@ -80,7 +120,7 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       })
 
       const data = await response.json()
@@ -126,24 +166,8 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
         {errors.category && <p className="text-red-500 text-sm mt-2">{errors.category}</p>}
       </div>
 
-      {/* Title */}
-      <div>
-        <label htmlFor="title" className="block text-black font-semibold mb-2">
-          Review Title <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="title"
-          type="text"
-          value={formData.title}
-          onChange={(e) => handleChange('title', e.target.value)}
-          placeholder="e.g., A Masterpiece of Modern Television"
-          className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none transition-colors"
-        />
-        {errors.title && <p className="text-red-500 text-sm mt-2">{errors.title}</p>}
-      </div>
-
-      {/* Subject Name */}
-      <div>
+      {/* Subject Name with Dropdown */}
+      <div className="relative">
         <label htmlFor="subject_name" className="block text-black font-semibold mb-2">
           What are you reviewing? <span className="text-red-500">*</span>
         </label>
@@ -152,10 +176,37 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
           type="text"
           value={formData.subject_name}
           onChange={(e) => handleChange('subject_name', e.target.value)}
+          onFocus={() => previousSubjects.length > 0 && setShowDropdown(true)}
+          onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
           placeholder="e.g., Breaking Bad, The Great Gatsby, Paris"
           className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none transition-colors"
         />
+
+        {/* Dropdown with previous subjects */}
+        {showDropdown && previousSubjects.length > 0 && (
+          <div className="absolute z-10 w-full mt-1 bg-white border border-black/20 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+            <div className="p-2 border-b border-black/10 bg-plague-lightGray">
+              <p className="text-xs text-black/60 font-semibold">Previously reviewed:</p>
+            </div>
+            {previousSubjects.map((subject, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => handleSubjectSelect(subject)}
+                className="w-full px-4 py-2 text-left hover:bg-plague-green/10 transition-colors text-black"
+              >
+                {subject}
+              </button>
+            ))}
+          </div>
+        )}
+
         {errors.subject_name && <p className="text-red-500 text-sm mt-2">{errors.subject_name}</p>}
+        {formData.category && !isLoadingSubjects && previousSubjects.length > 0 && (
+          <p className="text-black/40 text-xs mt-2">
+            💡 Select from previously reviewed {categories.find(c => c.slug === formData.category)?.name.toLowerCase()} or type a new one
+          </p>
+        )}
       </div>
 
       {/* Rating */}
