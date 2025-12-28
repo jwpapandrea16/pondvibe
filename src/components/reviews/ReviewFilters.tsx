@@ -10,6 +10,13 @@ const categories = [
   { name: 'Travel', slug: 'travel_destination', emoji: '✈️' },
 ]
 
+const subcategories: Record<string, string[]> = {
+  tv_show: ['Drama', 'Comedy', 'Thriller', 'Sci-Fi', 'Documentary', 'Reality', 'Animated', 'Other'],
+  movie: ['Drama', 'Comedy', 'Action', 'Thriller', 'Sci-Fi', 'Horror', 'Documentary', 'Animated', 'Other'],
+  book: ['Biography', 'Fiction', 'Non-Fiction', 'Self-Improvement', 'Mystery', 'Sci-Fi', 'Fantasy', 'Romance', 'History', 'Other'],
+  travel_destination: ['City', 'Beach', 'Mountain', 'Country', 'Island', 'National Park', 'Historical Site', 'Other'],
+}
+
 const sortOptions = [
   { name: 'Most Recent', value: 'recent' },
   { name: 'Top Rated', value: 'top_rated' },
@@ -21,6 +28,7 @@ export function ReviewFilters() {
   const searchParams = useSearchParams()
 
   const currentCategory = searchParams.get('category') || ''
+  const currentSubcategory = searchParams.get('subcategory') || ''
   const currentSort = searchParams.get('sortBy') || 'recent'
   const currentNftContract = searchParams.get('nftContract') || ''
 
@@ -31,6 +39,11 @@ export function ReviewFilters() {
       params.set(key, value)
     } else {
       params.delete(key)
+    }
+
+    // Reset subcategory when category changes
+    if (key === 'category' && value !== currentCategory) {
+      params.delete('subcategory')
     }
 
     // Reset to first page when filter changes
