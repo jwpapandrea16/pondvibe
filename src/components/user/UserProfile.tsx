@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/contexts/ToastContext'
 import { FollowButton } from './FollowButton'
+import { UserInterests } from './UserInterests'
 
 interface User {
   id: string
@@ -14,6 +15,7 @@ interface User {
   bio: string | null
   profile_image_url: string | null
   has_plague_nft: boolean
+  interests?: Record<string, string[]> | null
   created_at: string
   stats: {
     nfts: number
@@ -39,6 +41,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
     username: user.username || '',
     bio: user.bio || '',
     profile_image_url: user.profile_image_url || '',
+    interests: user.interests || {},
   })
   const [isSaving, setIsSaving] = useState(false)
   const [showSetupPrompt, setShowSetupPrompt] = useState(false)
@@ -153,6 +156,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
         user.username = updated.username
         user.bio = updated.bio
         user.profile_image_url = updated.profile_image_url
+        user.interests = updated.interests
         updateUser(updated)
         setIsEditing(false)
         setShowSetupPrompt(false)
