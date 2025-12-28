@@ -88,18 +88,18 @@ export default function Home() {
               </h2>
             </FadeIn>
 
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <StaggerContainer className="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
               {categories.map((category) => (
                 <StaggerItem key={category.slug}>
                   <Link
                     href={`/reviews?category=${category.slug}`}
-                    className="group p-6 rounded-xl bg-white border border-black/10 hover:border-plague-green transition-all hover:scale-105 block"
+                    className="group p-8 rounded-xl bg-white border border-black/10 hover:border-plague-green transition-all hover:scale-105 block"
                   >
-                    <div className="text-4xl mb-3">{category.emoji}</div>
-                    <h3 className="text-xl font-bold text-black mb-2 group-hover:text-plague-green transition-colors">
+                    <div className="text-5xl mb-4 text-center">{category.emoji}</div>
+                    <h3 className="text-xl font-bold text-black mb-2 group-hover:text-plague-green transition-colors text-center">
                       {category.name}
                     </h3>
-                    <p className="text-black/60 text-sm">{category.description}</p>
+                    <p className="text-black/60 text-sm text-center">{category.description}</p>
                   </Link>
                 </StaggerItem>
               ))}
@@ -122,9 +122,9 @@ export default function Home() {
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
                     <span className="text-2xl font-bold text-black">1</span>
                   </div>
-                  <h3 className="text-xl font-bold text-black mb-2">Connect Wallet</h3>
+                  <h3 className="text-xl font-bold text-black mb-2">Login with Discord</h3>
                   <p className="text-black/60">
-                    Connect your Ethereum wallet to verify your Plague NFT ownership
+                    Connect your Discord to verify your Frog Holder role in Plague Brands
                   </p>
                 </div>
               </StaggerItem>
