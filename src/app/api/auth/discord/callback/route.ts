@@ -29,6 +29,12 @@ export async function GET(request: NextRequest) {
 
     // Exchange code for access token
     const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/discord/callback`
+    console.log('=== Discord OAuth Debug ===')
+    console.log('Redirect URI:', redirectUri)
+    console.log('Client ID:', process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID)
+    console.log('Has Client Secret:', !!process.env.DISCORD_CLIENT_SECRET)
+    console.log('Authorization code:', code?.substring(0, 10) + '...')
+
     const { access_token } = await exchangeCodeForToken(code, redirectUri)
 
     // Get Discord user information
