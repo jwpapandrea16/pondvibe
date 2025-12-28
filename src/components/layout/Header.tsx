@@ -3,23 +3,14 @@
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 import { DiscordButton } from '@/components/auth/DiscordButton'
-import { useEffect, useState } from 'react'
 
 export function Header() {
   const { isAuthenticated, canCreateReview, user } = useAuth()
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const [imageError, setImageError] = useState(false)
-
-  // Reset image state when user changes
-  useEffect(() => {
-    setImageLoaded(false)
-    setImageError(false)
-  }, [user?.profile_image_url])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="w-full px-4">
-        <div className="container mx-auto max-w-6xl h-16 flex items-center">
+        <div className="container mx-auto max-w-6xl h-16 flex items-center gap-8">
           {/* Logo - Left */}
           <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
@@ -66,24 +57,12 @@ export function Header() {
                 href={`/profile/${user?.wallet_address || user?.discord_id}`}
                 className="flex items-center gap-2 text-black/80 hover:text-plague-green transition-colors"
               >
-                {user?.profile_image_url && !imageError ? (
-                  <>
-                    <img
-                      src={user.profile_image_url}
-                      alt="Profile"
-                      className={`w-8 h-8 rounded-full border-2 border-plague-green object-cover ${imageLoaded ? 'block' : 'hidden'}`}
-                      onLoad={() => setImageLoaded(true)}
-                      onError={() => {
-                        setImageError(true)
-                        setImageLoaded(false)
-                      }}
-                    />
-                    {!imageLoaded && !imageError && (
-                      <div className="w-8 h-8 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
-                        <span className="text-plague-green font-bold text-sm">...</span>
-                      </div>
-                    )}
-                  </>
+                {user?.profile_image_url ? (
+                  <img
+                    src={user.profile_image_url}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full border-2 border-plague-green object-cover"
+                  />
                 ) : (
                   <div className="w-8 h-8 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
                     <span className="text-plague-green font-bold text-sm">
