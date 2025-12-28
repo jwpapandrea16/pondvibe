@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/contexts/ToastContext'
 import { useSearchParams, useRouter } from 'next/navigation'
@@ -10,14 +10,21 @@ export function DiscordAuthHandler() {
   const { showToast } = useToast()
   const searchParams = useSearchParams()
   const router = useRouter()
+  const hasProcessed = useRef(false)
 
   useEffect(() => {
+    // Prevent multiple executions
+    if (hasProcessed.current) return
+
     const token = searchParams.get('token')
     const auth = searchParams.get('auth')
     const error = searchParams.get('error')
     const message = searchParams.get('message')
 
     if (error) {
+      // Mark as processed to prevent re-execution
+      hasProcessed.current = true
+
       // Handle Discord auth errors
       if (error === 'missing_role') {
         showToast(
@@ -35,6 +42,8 @@ export function DiscordAuthHandler() {
     }
 
     if (token && auth === 'discord') {
+      // Mark as processed to prevent re-execution
+      hasProcessed.current = true
       // Decode and verify JWT token to get user data
       try {
         const payload = JSON.parse(atob(token.split('.')[1]))
