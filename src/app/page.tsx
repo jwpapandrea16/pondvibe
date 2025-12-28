@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { FadeIn } from '@/components/animations/FadeIn'
@@ -17,7 +18,9 @@ const categories = [
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <DiscordAuthHandler />
+      <Suspense fallback={null}>
+        <DiscordAuthHandler />
+      </Suspense>
       <Header />
 
       <main className="flex-1">
