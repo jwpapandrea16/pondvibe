@@ -96,70 +96,82 @@ export default function UsersPage() {
 
               {/* Users Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {users.map((user) => (
-                  <Link
-                    key={user.id}
-                    href={`/profile/${user.wallet_address}`}
-                    className="group"
-                  >
-                    <div className="p-6 rounded-xl bg-plague-darkGray border border-black/10 hover:border-plague-green transition-all hover:shadow-lg">
-                      {/* Avatar */}
-                      <div className="flex justify-center mb-4">
-                        {user.profile_image_url ? (
-                          <img
-                            src={user.profile_image_url}
-                            alt={user.username || 'Profile'}
-                            className="w-24 h-24 rounded-full object-cover border-4 border-plague-green"
-                          />
-                        ) : (
-                          <div className="w-24 h-24 rounded-full bg-plague-green/20 border-4 border-plague-green flex items-center justify-center">
-                            <span className="text-plague-green font-tanker text-4xl">
-                              {user.username?.[0]?.toUpperCase() || user.wallet_address.slice(2, 4).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                {users.map((user) => {
+                  const displayName = user.username || user.discord_username ||
+                    (user.wallet_address ? `Frog ${user.wallet_address.slice(2, 8)}` : 'Discord User')
+                  const profileLink = user.wallet_address
+                    ? `/profile/${user.wallet_address}`
+                    : `/profile/${user.discord_id || user.id}`
 
-                      {/* User Info */}
-                      <div className="text-center">
-                        <h3 className="text-xl font-tanker text-black mb-2 group-hover:text-plague-green transition-colors">
-                          {user.username || `Frog ${user.wallet_address.slice(2, 8)}`}
-                        </h3>
-
-                        <p className="text-black/60 text-xs font-mono mb-3">
-                          {user.wallet_address.slice(0, 6)}...{user.wallet_address.slice(-4)}
-                        </p>
-
-                        {user.bio && (
-                          <p className="text-black/70 text-sm mb-4 line-clamp-2">
-                            {user.bio}
-                          </p>
-                        )}
-
-                        {/* Stats */}
-                        <div className="flex items-center justify-center gap-4 text-sm">
-                          <div className="flex items-center gap-1">
-                            <span className="text-2xl font-tanker text-plague-green">{user.review_count}</span>
-                            <span className="text-black/60">{user.review_count === 1 ? 'Review' : 'Reviews'}</span>
-                          </div>
-                        </div>
-
-                        {/* Badges */}
-                        <div className="flex items-center justify-center gap-2 mt-4">
-                          {user.has_plague_nft && (
-                            <span className="px-3 py-1 bg-plague-green/10 text-plague-green text-xs font-semibold rounded-full">
-                              🐸 Plague Holder
-                            </span>
+                  return (
+                    <Link
+                      key={user.id}
+                      href={profileLink}
+                      className="group"
+                    >
+                      <div className="p-6 rounded-xl bg-plague-darkGray border border-black/10 hover:border-plague-green transition-all hover:shadow-lg">
+                        {/* Avatar */}
+                        <div className="flex justify-center mb-4">
+                          {user.profile_image_url ? (
+                            <img
+                              src={user.profile_image_url}
+                              alt={displayName}
+                              className="w-24 h-24 rounded-full object-cover border-4 border-plague-green"
+                            />
+                          ) : (
+                            <div className="w-24 h-24 rounded-full bg-plague-green/20 border-4 border-plague-green flex items-center justify-center">
+                              <span className="text-plague-green font-tanker text-4xl">
+                                {user.username?.[0]?.toUpperCase() ||
+                                 user.discord_username?.[0]?.toUpperCase() ||
+                                 (user.wallet_address ? user.wallet_address.slice(2, 4).toUpperCase() : '?')}
+                              </span>
+                            </div>
                           )}
                         </div>
 
-                        <p className="text-black/40 text-xs mt-4">
-                          Joined {formatDate(user.created_at)}
-                        </p>
+                        {/* User Info */}
+                        <div className="text-center">
+                          <h3 className="text-xl font-tanker text-black mb-2 group-hover:text-plague-green transition-colors">
+                            {displayName}
+                          </h3>
+
+                          {user.wallet_address && (
+                            <p className="text-black/60 text-xs font-mono mb-3">
+                              {user.wallet_address.slice(0, 6)}...{user.wallet_address.slice(-4)}
+                            </p>
+                          )}
+
+                          {user.bio && (
+                            <p className="text-black/70 text-sm mb-4 line-clamp-2">
+                              {user.bio}
+                            </p>
+                          )}
+
+                          {/* Stats */}
+                          <div className="flex items-center justify-center gap-4 text-sm">
+                            <div className="flex items-center gap-1">
+                              <span className="text-2xl font-tanker text-plague-green">{user.review_count}</span>
+                              <span className="text-black/60">{user.review_count === 1 ? 'Review' : 'Reviews'}</span>
+                            </div>
+                          </div>
+
+                          {/* Badges */}
+                          <div className="flex items-center justify-center gap-2 mt-4">
+                            {user.has_plague_nft && (
+                              <span className="px-3 py-1 bg-plague-green/10 text-plague-green text-xs font-semibold rounded-full">
+                                🐸 Plague Holder
+                              </span>
+                            )}
+                          </div>
+
+                          <p className="text-black/40 text-xs mt-4">
+                            Joined {formatDate(user.created_at)}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  )
+                })}
               </div>
             </>
           )}
