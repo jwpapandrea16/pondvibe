@@ -213,7 +213,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
             >
               {editData.profile_image_url || user.profile_image_url ? (
                 <img
-                  src={editData.profile_image_url || user.profile_image_url}
+                  src={(editData.profile_image_url || user.profile_image_url) || ''}
                   alt={user.username || 'Profile'}
                   className="w-32 h-32 rounded-full object-cover border-4 border-plague-green"
                 />
