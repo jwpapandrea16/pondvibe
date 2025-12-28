@@ -2,7 +2,9 @@ export type ReviewCategory = 'tv_show' | 'book' | 'movie' | 'sports_team' | 'tra
 
 export interface User {
   id: string
-  wallet_address: string
+  wallet_address: string | null
+  discord_id?: string | null
+  discord_username?: string | null
   username: string | null
   bio: string | null
   profile_image_url: string | null
