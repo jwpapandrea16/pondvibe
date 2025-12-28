@@ -351,7 +351,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="p-4 rounded-lg bg-plague-lightGray border border-black/10">
             <p className="text-2xl font-tanker text-plague-green">{user.stats.nfts}</p>
-            <p className="text-black/60 text-sm">NFTs</p>
+            <p className="text-black/60 text-sm">Pond Vibe NFTs</p>
           </div>
           <div className="p-4 rounded-lg bg-plague-lightGray border border-black/10">
             <p className="text-2xl font-tanker text-plague-green">{user.stats.reviews}</p>
