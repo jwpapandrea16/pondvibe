@@ -287,7 +287,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                   <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="px-6 py-2 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all disabled:opacity-50"
+                    className="px-6 py-2 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all disabled:opacity-50"
                   >
                     {isSaving ? 'Saving...' : 'Save Profile'}
                   </button>
