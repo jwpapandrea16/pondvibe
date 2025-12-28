@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/contexts/ToastContext'
 import { FollowButton } from './FollowButton'
@@ -30,6 +30,8 @@ interface UserProfileProps {
 export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps) {
   const { token, updateUser } = useAuth()
   const { showToast } = useToast()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState({
     username: user.username || '',
@@ -38,6 +40,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
   })
   const [isSaving, setIsSaving] = useState(false)
   const [showSetupPrompt, setShowSetupPrompt] = useState(false)
+  const [isUploadingImage, setIsUploadingImage] = useState(false)
 
   // Show setup prompt if user is owner and has no username
   useEffect(() => {
@@ -45,6 +48,81 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
       setShowSetupPrompt(true)
     }
   }, [isOwner, user.username, isEditing])
+
+  const handleImageClick = () => {
+    if (isEditing && fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      showToast('Please select an image file', 'error', 4000)
+      return
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      showToast('Image must be smaller than 2MB', 'error', 4000)
+      return
+    }
+
+    setIsUploadingImage(true)
+
+    try {
+      // Create a canvas to resize the image
+      const img = new Image()
+      const reader = new FileReader()
+
+      reader.onload = (e) => {
+        img.src = e.target?.result as string
+      }
+
+      img.onload = () => {
+        // Resize to max 400x400 while maintaining aspect ratio
+        const maxSize = 400
+        let width = img.width
+        let height = img.height
+
+        if (width > height) {
+          if (width > maxSize) {
+            height = (height * maxSize) / width
+            width = maxSize
+          }
+        } else {
+          if (height > maxSize) {
+            width = (width * maxSize) / height
+            height = maxSize
+          }
+        }
+
+        // Create canvas and draw resized image
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        ctx?.drawImage(img, 0, 0, width, height)
+
+        // Convert to base64 (JPEG for better compression)
+        const resizedBase64 = canvas.toDataURL('image/jpeg', 0.85)
+
+        // Update the form data
+        setEditData(prev => ({ ...prev, profile_image_url: resizedBase64 }))
+        showToast('Image uploaded! Click Save to update your profile.', 'success', 4000)
+        setIsUploadingImage(false)
+      }
+
+      reader.readAsDataURL(file)
+    } catch (error) {
+      console.error('Error uploading image:', error)
+      showToast('Failed to upload image', 'error', 4000)
+      setIsUploadingImage(false)
+    }
+  }
 
   const handleSave = async () => {
     if (!token) return
@@ -127,20 +205,49 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
       <div className="p-8 rounded-xl bg-plague-darkGray border border-black/10">
         {/* Profile Header */}
         <div className="flex flex-col md:flex-row gap-6 mb-8">
-          {/* Avatar */}
+          {/* Avatar - Clickable in edit mode */}
           <div className="flex-shrink-0">
-            {user.profile_image_url ? (
-              <img
-                src={user.profile_image_url}
-                alt={user.username || 'Profile'}
-                className="w-32 h-32 rounded-full object-cover border-4 border-plague-lime"
-              />
-            ) : (
-              <div className="w-32 h-32 rounded-full bg-plague-lime/20 border-4 border-plague-lime flex items-center justify-center">
-                <span className="text-plague-lime font-tanker text-5xl">
-                  {user.username?.[0]?.toUpperCase() || user.wallet_address.slice(2, 4).toUpperCase()}
-                </span>
-              </div>
+            <div
+              onClick={handleImageClick}
+              className={`relative ${isEditing ? 'cursor-pointer group' : ''}`}
+            >
+              {editData.profile_image_url || user.profile_image_url ? (
+                <img
+                  src={editData.profile_image_url || user.profile_image_url}
+                  alt={user.username || 'Profile'}
+                  className="w-32 h-32 rounded-full object-cover border-4 border-plague-green"
+                />
+              ) : (
+                <div className="w-32 h-32 rounded-full bg-plague-green/20 border-4 border-plague-green flex items-center justify-center">
+                  <span className="text-plague-green font-tanker text-5xl">
+                    {user.username?.[0]?.toUpperCase() || user.wallet_address.slice(2, 4).toUpperCase()}
+                  </span>
+                </div>
+              )}
+
+              {/* Upload overlay in edit mode */}
+              {isEditing && (
+                <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="text-white text-sm font-semibold">
+                    {isUploadingImage ? '⏳' : '📷 Upload'}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+
+            {isEditing && (
+              <p className="text-xs text-black/50 text-center mt-2">
+                Click to upload
+              </p>
             )}
           </div>
 
@@ -157,7 +264,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                     value={editData.username}
                     onChange={(e) => setEditData({ ...editData, username: e.target.value })}
                     placeholder="Enter your display name"
-                    className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-lime focus:outline-none"
+                    className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none"
                     maxLength={30}
                   />
                   <p className="text-xs text-black/50 mt-1">At least 3 characters</p>
@@ -171,23 +278,10 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                     onChange={(e) => setEditData({ ...editData, bio: e.target.value })}
                     placeholder="Tell us about yourself"
                     rows={3}
-                    className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-lime focus:outline-none resize-none"
+                    className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-green focus:outline-none resize-none"
                     maxLength={200}
                   />
                   <p className="text-xs text-black/50 mt-1">{editData.bio.length}/200 characters</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-black mb-2">
-                    Profile Picture URL
-                  </label>
-                  <input
-                    type="text"
-                    value={editData.profile_image_url}
-                    onChange={(e) => setEditData({ ...editData, profile_image_url: e.target.value })}
-                    placeholder="https://example.com/your-image.jpg"
-                    className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-lime focus:outline-none"
-                  />
-                  <p className="text-xs text-black/50 mt-1">Upload your image to Imgur or similar, then paste the URL</p>
                 </div>
                 <div className="flex gap-3">
                   <button
