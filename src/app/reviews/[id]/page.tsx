@@ -183,13 +183,13 @@ export default function ReviewDetailPage() {
           {/* Back Button */}
           <Link
             href="/reviews"
-            className="inline-flex items-center gap-2 text-plague-lime hover:text-plague-yellow transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-plague-green hover:text-plague-green/80 transition-colors mb-6"
           >
             ← Back to Reviews
           </Link>
 
           {/* Review Content */}
-          <article className="p-8 rounded-xl bg-plague-darkGray border border-white/10">
+          <article className="p-8 rounded-xl bg-white border border-black/10 shadow-sm">
             {/* Header */}
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -197,16 +197,16 @@ export default function ReviewDetailPage() {
                   href={`/profile/${review.users.wallet_address}`}
                   className="flex items-center gap-3 hover:opacity-80 transition-opacity"
                 >
-                  <div className="w-12 h-12 rounded-full bg-plague-lime/20 border-2 border-plague-lime flex items-center justify-center">
-                    <span className="text-plague-lime font-bold">
+                  <div className="w-12 h-12 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
+                    <span className="text-plague-green font-bold">
                       {review.users.username?.[0]?.toUpperCase() || review.users.wallet_address.slice(2, 4).toUpperCase()}
                     </span>
                   </div>
                   <div>
-                    <p className="text-white font-semibold">
+                    <p className="text-black font-semibold">
                       {review.users.username || `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}`}
                     </p>
-                    <p className="text-white/40 text-sm">{formatDate(review.created_at)}</p>
+                    <p className="text-black/40 text-sm">{formatDate(review.created_at)}</p>
                   </div>
                 </Link>
               </div>
@@ -217,7 +217,7 @@ export default function ReviewDetailPage() {
                   <div className="flex gap-2">
                     <Link
                       href={`/reviews/${review.id}/edit`}
-                      className="px-4 py-2 bg-white/5 text-white rounded-lg hover:bg-white/10 transition-colors text-sm"
+                      className="px-4 py-2 bg-black/5 text-black rounded-lg hover:bg-black/10 transition-colors text-sm"
                     >
                       Edit
                     </Link>
@@ -235,32 +235,32 @@ export default function ReviewDetailPage() {
 
             {/* Rating */}
             <div className="flex items-center gap-3 mb-6">
-              <span className="text-6xl font-tanker text-plague-lime">{review.rating.toFixed(1)}</span>
-              <span className="text-white/60 text-2xl">/10</span>
+              <span className="text-6xl font-tanker text-plague-green">{review.rating.toFixed(1)}</span>
+              <span className="text-black/60 text-2xl">/10</span>
             </div>
 
             {/* Title and Subject */}
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{review.title}</h1>
-            <p className="text-xl text-white/80 mb-8">
-              <span className="text-white/60">Reviewing:</span> {review.subject_name}
+            <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">{review.title}</h1>
+            <p className="text-xl text-black/80 mb-8">
+              <span className="text-black/60">Reviewing:</span> {review.subject_name}
             </p>
 
             {/* Content */}
-            <div className="prose prose-invert max-w-none mb-8">
-              <p className="text-white/90 text-lg leading-relaxed whitespace-pre-wrap">
+            <div className="prose prose-lg max-w-none mb-8">
+              <p className="text-black/90 text-lg leading-relaxed whitespace-pre-wrap">
                 {review.content}
               </p>
             </div>
 
             {/* Footer Actions */}
-            <div className="flex items-center justify-between pt-6 border-t border-white/10">
+            <div className="flex items-center justify-between pt-6 border-t border-black/10">
               <button
                 onClick={handleLike}
                 disabled={!isAuthenticated}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
                   isLiked
-                    ? 'bg-plague-lime/20 text-plague-lime'
-                    : 'bg-white/5 text-white/60 hover:bg-white/10'
+                    ? 'bg-plague-green/20 text-plague-green'
+                    : 'bg-black/5 text-black/60 hover:bg-black/10'
                 } ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               >
                 <span>{isLiked ? '❤️' : '🤍'}</span>
@@ -268,7 +268,7 @@ export default function ReviewDetailPage() {
               </button>
 
               {review.updated_at !== review.created_at && (
-                <p className="text-white/40 text-sm">
+                <p className="text-black/40 text-sm">
                   Last updated: {formatDate(review.updated_at)}
                 </p>
               )}

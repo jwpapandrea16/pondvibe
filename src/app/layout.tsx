@@ -14,6 +14,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Pond Vibe - Verified Reviews from the Plague Community",
   description: "Share and discover reviews from verified Plague and Exodus Plague NFT holders",
+  icons: {
+    icon: '/elder.png',
+    shortcut: '/elder.png',
+    apple: '/elder.png',
+  },
 };
 
 export default function RootLayout({
