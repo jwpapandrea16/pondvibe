@@ -34,6 +34,7 @@ function FeedContent() {
   const [total, setTotal] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [followingOnly, setFollowingOnly] = useState(false)
 
   const category = searchParams.get('category') || ''
   const nftContract = searchParams.get('nftContract') || ''
@@ -46,7 +47,7 @@ function FeedContent() {
     } else {
       setIsLoading(false)
     }
-  }, [category, nftContract, offset, isAuthenticated, token])
+  }, [category, nftContract, offset, isAuthenticated, token, followingOnly])
 
   const fetchFeed = async () => {
     if (!token) return
@@ -58,6 +59,7 @@ function FeedContent() {
       const params = new URLSearchParams({
         limit: limit.toString(),
         offset: offset.toString(),
+        followingOnly: followingOnly.toString(),
       })
 
       if (category) params.set('category', category)
@@ -117,9 +119,35 @@ function FeedContent() {
             <h1 className="text-4xl md:text-5xl font-tanker text-black mb-4">
               Activity Feed
             </h1>
-            <p className="text-black/60 text-lg">
-              Reviews from Plague holders you follow
+            <p className="text-black/60 text-lg mb-6">
+              {followingOnly
+                ? 'Reviews from Plague holders you follow'
+                : 'All reviews from the Plague community'}
             </p>
+
+            {/* Filter Toggle */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setFollowingOnly(false)}
+                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                  !followingOnly
+                    ? 'bg-plague-green text-white'
+                    : 'bg-plague-darkGray text-black/60 hover:text-black'
+                }`}
+              >
+                All Reviews
+              </button>
+              <button
+                onClick={() => setFollowingOnly(true)}
+                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                  followingOnly
+                    ? 'bg-plague-green text-white'
+                    : 'bg-plague-darkGray text-black/60 hover:text-black'
+                }`}
+              >
+                Following Only
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -148,15 +176,19 @@ function FeedContent() {
                 </div>
               ) : reviews.length === 0 ? (
                 <div className="p-12 rounded-xl bg-plague-darkGray border border-black/10 text-center">
-                  <p className="text-black/60 text-lg mb-4">No reviews in your feed</p>
+                  <p className="text-black/60 text-lg mb-4">
+                    {followingOnly ? 'No reviews from people you follow' : 'No reviews found'}
+                  </p>
                   <p className="text-black/40 mb-6">
-                    Follow other Plague holders to see their reviews here
+                    {followingOnly
+                      ? 'Follow other Plague holders to see their reviews here'
+                      : 'Be the first to write a review!'}
                   </p>
                   <Link
-                    href="/reviews"
+                    href={followingOnly ? '/users' : '/reviews'}
                     className="inline-block px-6 py-3 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all"
                   >
-                    Explore Reviews
+                    {followingOnly ? 'Discover Users' : 'Explore Reviews'}
                   </Link>
                 </div>
               ) : (
