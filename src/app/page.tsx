@@ -71,7 +71,7 @@ export default function Home() {
               <FadeIn delay={0.5}>
                 <div className="pt-8 flex items-center justify-center gap-3 text-sm text-black/40">
                   <Image src="/elder.png" alt="Elder Frog" width={24} height={24} className="object-contain" />
-                  <span>Powered by the Exodus Plague</span>
+                  <span>Powered by the Exodus Plague Community</span>
                   <Image src="/elder.png" alt="Elder Frog" width={24} height={24} className="object-contain" />
                 </div>
               </FadeIn>
