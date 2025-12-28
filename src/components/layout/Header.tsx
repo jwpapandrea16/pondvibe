@@ -104,6 +104,12 @@ export function Header() {
           >
             Reviews
           </Link>
+          <Link
+            href="/users"
+            className="text-black/80 hover:text-plague-green transition-colors"
+          >
+            Users
+          </Link>
           {isAuthenticated && (
             <>
               <Link
