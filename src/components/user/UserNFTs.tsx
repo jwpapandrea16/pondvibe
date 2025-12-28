@@ -17,6 +17,10 @@ interface UserNFTsProps {
   walletAddress: string
 }
 
+// Plague NFT contract addresses
+const PLAGUE_NFT_CONTRACT = process.env.NEXT_PUBLIC_PLAGUE_NFT_CONTRACT?.toLowerCase() || '0xc379e535caff250a01caa6c3724ed1359fe5c29b'
+const EXODUS_PLAGUE_CONTRACT = process.env.NEXT_PUBLIC_EXODUS_PLAGUE_CONTRACT?.toLowerCase() || '0xacc8a2dd94da0e45fb36455dc3aa5d9a4a002139'
+
 export function UserNFTs({ userId, walletAddress }: UserNFTsProps) {
   const { token } = useAuth()
   const [nfts, setNfts] = useState<NFT[]>([])
@@ -44,7 +48,13 @@ export function UserNFTs({ userId, walletAddress }: UserNFTsProps) {
 
       if (nftError) throw nftError
 
-      setNfts(data || [])
+      // Filter to only show Plague and Exodus Plague NFTs
+      const plagueNFTs = (data || []).filter(nft => {
+        const contractLower = nft.contract_address.toLowerCase()
+        return contractLower === PLAGUE_NFT_CONTRACT || contractLower === EXODUS_PLAGUE_CONTRACT
+      })
+
+      setNfts(plagueNFTs)
     } catch (err) {
       console.error('Error fetching NFTs:', err)
       setError('Failed to load NFTs')
