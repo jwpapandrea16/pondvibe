@@ -1,91 +1,11 @@
 'use client'
 
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
-import { useToast } from '@/contexts/ToastContext'
-import { useAccount } from 'wagmi'
-import { useEffect } from 'react'
-import { SiweMessage } from 'siwe'
-import { useSignMessage } from 'wagmi'
 import { DiscordLoginButton } from '@/components/auth/DiscordLoginButton'
 
 export function Header() {
-  const { isAuthenticated, canCreateReview, login, user } = useAuth()
-  const { address, isConnected } = useAccount()
-  const { signMessageAsync } = useSignMessage()
-  const { showToast } = useToast()
-
-  const handleAuth = async () => {
-    if (!address) return
-
-    try {
-      // Get nonce
-      const nonceRes = await fetch('/api/auth/nonce', { method: 'POST' })
-      const { nonce } = await nonceRes.json()
-
-      // Create SIWE message
-      const message = new SiweMessage({
-        domain: window.location.host,
-        address,
-        statement: 'Sign in to Pond Vibe with your Ethereum wallet',
-        uri: window.location.origin,
-        version: '1',
-        chainId: 1,
-        nonce,
-      })
-
-      const preparedMessage = message.prepareMessage()
-
-      // Sign message
-      const signature = await signMessageAsync({ message: preparedMessage })
-
-      // Verify and login
-      const verifyRes = await fetch('/api/auth/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: preparedMessage, signature }),
-      })
-
-      if (!verifyRes.ok) {
-        const errorData = await verifyRes.json()
-        throw new Error(errorData.error || 'Authentication failed')
-      }
-
-      const { token, user } = await verifyRes.json()
-      login(token, user)
-
-      // Show appropriate message based on NFT ownership
-      if (user.has_plague_nft) {
-        showToast(
-          'Welcome! You are verified and can write reviews.',
-          'success',
-          6000
-        )
-      } else {
-        showToast(
-          'Thank you for connecting! However, you do not hold a necessary NFT to write reviews. In the meantime, enjoy reading our verified reviews!',
-          'info',
-          8000
-        )
-      }
-    } catch (error) {
-      console.error('Authentication failed:', error)
-      showToast('Authentication failed. Please try again.', 'error', 5000)
-    }
-  }
-
-  // Auto-authenticate when wallet connects (only if not already authenticated)
-  useEffect(() => {
-    if (isConnected && address && !isAuthenticated) {
-      // Check if we have stored auth before triggering new authentication
-      const storedToken = localStorage.getItem('auth_token')
-      if (!storedToken) {
-        handleAuth()
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, address, isAuthenticated])
+  const { isAuthenticated, canCreateReview, user } = useAuth()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
@@ -120,7 +40,7 @@ export function Header() {
           {isAuthenticated && (
             <>
               <Link
-                href={`/profile/${user?.wallet_address}`}
+                href={`/profile/${user?.wallet_address || user?.discord_id}`}
                 className="text-black/80 hover:text-plague-green transition-colors"
               >
                 Profile
@@ -137,19 +57,9 @@ export function Header() {
           )}
         </nav>
 
-        {/* Authentication Buttons */}
+        {/* Discord Login Button */}
         <div className="flex items-center gap-3">
           {!isAuthenticated && <DiscordLoginButton />}
-          <ConnectButton
-            accountStatus={{
-              smallScreen: 'avatar',
-              largeScreen: 'full',
-            }}
-            showBalance={{
-              smallScreen: false,
-              largeScreen: false,
-            }}
-          />
         </div>
       </div>
     </header>
