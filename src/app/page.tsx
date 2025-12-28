@@ -80,7 +80,7 @@ export default function Home() {
         </section>
 
         {/* Categories Section */}
-        <section className="py-16 px-4 bg-plague-darkGray flex flex-col items-center">
+        <section className="py-16 px-4 bg-plague-darkGray flex justify-center">
           <div className="w-full max-w-6xl">
             <FadeIn delay={0.2}>
               <h2 className="text-3xl md:text-4xl font-tanker text-black text-center mb-12">
@@ -110,7 +110,7 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-16 px-4 bg-white flex flex-col items-center">
+        <section className="py-16 px-4 bg-white flex justify-center">
           <div className="w-full max-w-6xl">
             <FadeIn delay={0.2}>
               <h2 className="text-3xl md:text-4xl font-tanker text-black text-center mb-12">
