@@ -23,11 +23,21 @@ export async function GET(
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // Count user's NFTs
-    const { count: nftCount } = await supabase
+    // Count user's Plague NFTs (approved collections only)
+    const PLAGUE_NFT_CONTRACT = process.env.NEXT_PUBLIC_PLAGUE_NFT_CONTRACT?.toLowerCase() || '0xc379e535caff250a01caa6c3724ed1359fe5c29b'
+    const EXODUS_PLAGUE_CONTRACT = process.env.NEXT_PUBLIC_EXODUS_PLAGUE_CONTRACT?.toLowerCase() || '0xacc8a2dd94da0e45fb36455dc3aa5d9a4a002139'
+
+    const { data: userNfts } = await supabase
       .from('user_nfts')
-      .select('*', { count: 'exact', head: true })
+      .select('contract_address')
       .eq('user_id', user.id)
+
+    // Filter to only Plague collections
+    const plagueNfts = (userNfts || []).filter(nft => {
+      const contractLower = nft.contract_address.toLowerCase()
+      return contractLower === PLAGUE_NFT_CONTRACT || contractLower === EXODUS_PLAGUE_CONTRACT
+    })
+    const nftCount = plagueNfts.length
 
     // Count user's reviews
     const { count: reviewCount } = await supabase
