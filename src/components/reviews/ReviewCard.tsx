@@ -95,7 +95,7 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <Link
-            href={`/profile/${review.users.wallet_address}`}
+            href={`/profile/${review.users.wallet_address || review.users.discord_id}`}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             {review.users.profile_image_url ? (
@@ -107,14 +107,24 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
             ) : (
               <div className="w-10 h-10 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
                 <span className="text-plague-green font-bold text-sm">
-                  {review.users.username?.[0]?.toUpperCase() || review.users.wallet_address.slice(2, 4).toUpperCase()}
+                  {review.users.username?.[0]?.toUpperCase() ||
+                   review.users.discord_username?.[0]?.toUpperCase() ||
+                   (review.users.wallet_address ? review.users.wallet_address.slice(2, 4).toUpperCase() : '?')}
                 </span>
               </div>
             )}
             <div>
-              <p className="text-black font-semibold text-sm">
-                {review.users.username || `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}`}
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-black font-semibold text-sm">
+                  {review.users.discord_username || review.users.username ||
+                   (review.users.wallet_address ? `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}` : 'Anonymous')}
+                </p>
+                {review.users.review_count !== undefined && review.users.review_count > 0 && (
+                  <span className="px-2 py-0.5 bg-plague-green/20 text-plague-green text-xs font-bold rounded-full">
+                    {review.users.review_count} {review.users.review_count === 1 ? 'review' : 'reviews'}
+                  </span>
+                )}
+              </div>
               <p className="text-black/40 text-xs">{formatDate(review.created_at)}</p>
             </div>
           </Link>
