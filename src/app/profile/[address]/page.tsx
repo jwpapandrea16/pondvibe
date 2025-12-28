@@ -37,7 +37,8 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<Tab>('reviews')
 
   const address = params.address as string
-  const isOwner = currentUser?.wallet_address.toLowerCase() === address.toLowerCase()
+  const isOwner = (currentUser?.wallet_address?.toLowerCase() === address.toLowerCase()) ||
+                  (currentUser?.discord_id === address)
 
   useEffect(() => {
     fetchUserProfile()
