@@ -159,7 +159,7 @@ export function UserNFTs({ userId, walletAddress }: UserNFTsProps) {
             {collectionNFTs.map((nft) => (
               <div
                 key={nft.id}
-                className="group aspect-square rounded-lg overflow-hidden bg-plague-lightGray border border-black/10 hover:border-plague-lime transition-all"
+                className="aspect-square rounded-lg overflow-hidden bg-plague-lightGray border border-black/10"
               >
                 {nft.image_url ? (
                   <img
@@ -172,9 +172,6 @@ export function UserNFTs({ userId, walletAddress }: UserNFTsProps) {
                     <span className="text-black/40">No Image</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <p className="text-white font-semibold">#{nft.token_id}</p>
-                </div>
               </div>
             ))}
           </div>
