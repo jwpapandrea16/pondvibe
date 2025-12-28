@@ -80,30 +80,32 @@ export default function Home() {
         </section>
 
         {/* Categories Section */}
-        <section className="py-16 px-4 bg-plague-darkGray">
-          <div className="container mx-auto max-w-6xl">
+        <section className="py-16 px-4 bg-plague-darkGray flex flex-col items-center">
+          <div className="w-full max-w-6xl">
             <FadeIn delay={0.2}>
               <h2 className="text-3xl md:text-4xl font-tanker text-black text-center mb-12">
                 Browse by Category
               </h2>
             </FadeIn>
 
-            <StaggerContainer className="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
-              {categories.map((category) => (
-                <StaggerItem key={category.slug}>
-                  <Link
-                    href={`/reviews?category=${category.slug}`}
-                    className="group p-8 rounded-xl bg-white border border-black/10 hover:border-plague-green transition-all hover:scale-105 block"
-                  >
-                    <div className="text-5xl mb-4 text-center">{category.emoji}</div>
-                    <h3 className="text-xl font-bold text-black mb-2 group-hover:text-plague-green transition-colors text-center">
-                      {category.name}
-                    </h3>
-                    <p className="text-black/60 text-sm text-center">{category.description}</p>
-                  </Link>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+            <div className="flex justify-center">
+              <StaggerContainer className="grid grid-cols-2 gap-6 max-w-2xl">
+                {categories.map((category) => (
+                  <StaggerItem key={category.slug}>
+                    <Link
+                      href={`/reviews?category=${category.slug}`}
+                      className="group p-8 rounded-xl bg-white border border-black/10 hover:border-plague-green transition-all hover:scale-105 block"
+                    >
+                      <div className="text-5xl mb-4 text-center">{category.emoji}</div>
+                      <h3 className="text-xl font-bold text-black mb-2 group-hover:text-plague-green transition-colors text-center">
+                        {category.name}
+                      </h3>
+                      <p className="text-black/60 text-sm text-center">{category.description}</p>
+                    </Link>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            </div>
           </div>
         </section>
 
