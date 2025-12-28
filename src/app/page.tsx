@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { FadeIn } from '@/components/animations/FadeIn'
 import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer'
+import { DiscordAuthHandler } from '@/components/auth/DiscordAuthHandler'
 
 const categories = [
   { name: 'TV Shows', slug: 'tv_show', emoji: '📺', description: 'Series & streaming content' },
@@ -14,6 +17,7 @@ const categories = [
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <DiscordAuthHandler />
       <Header />
 
       <main className="flex-1">
