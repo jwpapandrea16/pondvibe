@@ -73,7 +73,13 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
   }
 
   const handleChange = (field: string, value: string | number) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    setFormData(prev => {
+      // Reset subcategory when category changes
+      if (field === 'category') {
+        return { ...prev, [field]: value, subcategory: '' }
+      }
+      return { ...prev, [field]: value }
+    })
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }))
@@ -114,9 +120,17 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
       const categoryName = categories.find(c => c.slug === formData.category)?.name || 'Review'
       const autoTitle = `${formData.subject_name} - ${categoryName} Review`
 
-      const submitData = {
+      const submitData: any = {
         ...formData,
         title: autoTitle,
+      }
+
+      // Include subcategory in metadata if it exists
+      if (formData.subcategory) {
+        submitData.subject_metadata = {
+          ...(typeof formData.nft_gate_collection === 'object' ? formData.nft_gate_collection : {}),
+          subcategory: formData.subcategory,
+        }
       }
 
       const url = mode === 'edit' ? `/api/reviews/${initialData?.id}` : '/api/reviews'
