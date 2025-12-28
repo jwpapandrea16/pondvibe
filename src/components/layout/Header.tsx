@@ -9,16 +9,16 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="container flex h-16 items-center justify-between px-4 mx-auto max-w-7xl">
+      <div className="container relative flex h-16 items-center justify-between px-4 mx-auto max-w-7xl">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80 z-10">
           <span className="text-2xl font-tanker text-plague-green">
             POND VIBE
           </span>
         </Link>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+        {/* Navigation - Centered */}
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium absolute left-1/2 -translate-x-1/2">
           <Link
             href="/reviews"
             className="text-black/80 hover:text-plague-green transition-colors"
@@ -48,7 +48,7 @@ export function Header() {
         </nav>
 
         {/* Right side - Profile & Discord Button */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 z-10">
           {isAuthenticated && (
             <Link
               href={`/profile/${user?.wallet_address || user?.discord_id}`}
