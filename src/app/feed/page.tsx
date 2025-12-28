@@ -37,6 +37,7 @@ function FeedContent() {
   const [followingOnly, setFollowingOnly] = useState(false)
 
   const category = searchParams.get('category') || ''
+  const subcategory = searchParams.get('subcategory') || ''
   const nftContract = searchParams.get('nftContract') || ''
   const offset = parseInt(searchParams.get('offset') || '0')
   const limit = 20
@@ -47,7 +48,7 @@ function FeedContent() {
     } else {
       setIsLoading(false)
     }
-  }, [category, nftContract, offset, isAuthenticated, token, followingOnly])
+  }, [category, subcategory, nftContract, offset, isAuthenticated, token, followingOnly])
 
   const fetchFeed = async () => {
     if (!token) return
@@ -63,6 +64,7 @@ function FeedContent() {
       })
 
       if (category) params.set('category', category)
+      if (subcategory) params.set('subcategory', subcategory)
       if (nftContract) params.set('nftContract', nftContract)
 
       const response = await fetch(`/api/feed?${params.toString()}`, {

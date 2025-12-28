@@ -21,6 +21,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20')
     const offset = parseInt(searchParams.get('offset') || '0')
     const category = searchParams.get('category')
+    const subcategory = searchParams.get('subcategory')
     const nftContract = searchParams.get('nftContract')
     const followingOnly = searchParams.get('followingOnly') === 'true'
 
@@ -64,6 +65,10 @@ export async function GET(request: NextRequest) {
     // Apply filters
     if (category) {
       query = query.eq('category', category)
+    }
+
+    if (subcategory) {
+      query = query.eq('subject_metadata->>subcategory', subcategory)
     }
 
     if (nftContract) {
