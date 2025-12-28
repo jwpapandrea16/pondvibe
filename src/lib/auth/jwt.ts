@@ -4,7 +4,8 @@ const JWT_SECRET = process.env.JWT_SECRET!
 
 export interface JWTPayload {
   userId: string
-  walletAddress: string
+  walletAddress?: string
+  discordId?: string
   hasPlagueNFT: boolean
 }
 
