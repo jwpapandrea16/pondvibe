@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface User {
   id: string
@@ -19,20 +20,26 @@ interface User {
 }
 
 export default function UsersPage() {
+  const { token } = useAuth()
   const [users, setUsers] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchUsers()
-  }, [])
+  }, [token])
 
   const fetchUsers = async () => {
     setIsLoading(true)
     setError(null)
 
     try {
-      const response = await fetch('/api/users?limit=50')
+      const headers: HeadersInit = {}
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+
+      const response = await fetch('/api/users?limit=50', { headers })
 
       if (!response.ok) {
         throw new Error('Failed to fetch users')
