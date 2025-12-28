@@ -10,7 +10,7 @@ import { SiweMessage } from 'siwe'
 import { useSignMessage } from 'wagmi'
 
 export function Header() {
-  const { isAuthenticated, canCreateReview, login } = useAuth()
+  const { isAuthenticated, canCreateReview, login, user } = useAuth()
   const { address, isConnected } = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { showToast } = useToast()
@@ -111,6 +111,12 @@ export function Header() {
                 className="text-black/80 hover:text-plague-green transition-colors"
               >
                 Feed
+              </Link>
+              <Link
+                href={`/profile/${user?.wallet_address}`}
+                className="text-black/80 hover:text-plague-green transition-colors"
+              >
+                Profile
               </Link>
               {canCreateReview && (
                 <Link
