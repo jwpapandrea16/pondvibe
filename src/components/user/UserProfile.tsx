@@ -75,7 +75,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
   }
 
   return (
-    <div className="p-8 rounded-xl bg-plague-darkGray border border-white/10">
+    <div className="p-8 rounded-xl bg-plague-darkGray border border-black/10">
       {/* Profile Header */}
       <div className="flex flex-col md:flex-row gap-6 mb-8">
         {/* Avatar */}
@@ -104,21 +104,21 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                 value={editData.username}
                 onChange={(e) => setEditData({ ...editData, username: e.target.value })}
                 placeholder="Username"
-                className="w-full px-4 py-2 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none"
+                className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-lime focus:outline-none"
               />
               <textarea
                 value={editData.bio}
                 onChange={(e) => setEditData({ ...editData, bio: e.target.value })}
                 placeholder="Bio"
                 rows={3}
-                className="w-full px-4 py-2 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none resize-none"
+                className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-lime focus:outline-none resize-none"
               />
               <input
                 type="text"
                 value={editData.profile_image_url}
                 onChange={(e) => setEditData({ ...editData, profile_image_url: e.target.value })}
                 placeholder="Profile image URL"
-                className="w-full px-4 py-2 bg-plague-lightGray border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:border-plague-lime focus:outline-none"
+                className="w-full px-4 py-2 bg-white border border-black/10 rounded-lg text-black placeholder:text-black/40 focus:border-plague-lime focus:outline-none"
               />
               <div className="flex gap-3">
                 <button
@@ -130,7 +130,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                 </button>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-6 py-2 border-2 border-white/10 text-white rounded-lg hover:border-white/30 transition-colors"
+                  className="px-6 py-2 border-2 border-black/10 text-black rounded-lg hover:border-black/30 transition-colors"
                 >
                   Cancel
                 </button>
@@ -140,17 +140,17 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
             <>
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h1 className="text-3xl font-tanker text-white mb-2">
+                  <h1 className="text-3xl font-tanker text-black mb-2">
                     {user.username || `Frog ${user.wallet_address.slice(2, 8)}`}
                   </h1>
-                  <p className="text-white/60 text-sm font-mono">
+                  <p className="text-black/60 text-sm font-mono">
                     {user.wallet_address.slice(0, 6)}...{user.wallet_address.slice(-4)}
                   </p>
                 </div>
                 {isOwner ? (
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="px-4 py-2 bg-white/5 text-white rounded-lg hover:bg-white/10 transition-colors"
+                    className="px-4 py-2 bg-black/5 text-black rounded-lg hover:bg-black/10 transition-colors"
                   >
                     Edit Profile
                   </button>
@@ -160,10 +160,10 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
               </div>
 
               {user.bio && (
-                <p className="text-white/80 mb-4">{user.bio}</p>
+                <p className="text-black/80 mb-4">{user.bio}</p>
               )}
 
-              <div className="flex items-center gap-4 text-sm text-white/60">
+              <div className="flex items-center gap-4 text-sm text-black/60">
                 {user.has_plague_nft && (
                   <span className="flex items-center gap-1">
                     <span>🐸</span>
@@ -179,21 +179,21 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-lg bg-plague-lightGray border border-white/10">
-          <p className="text-2xl font-tanker text-plague-lime">{user.stats.nfts}</p>
-          <p className="text-white/60 text-sm">NFTs</p>
+        <div className="p-4 rounded-lg bg-plague-lightGray border border-black/10">
+          <p className="text-2xl font-tanker text-plague-green">{user.stats.nfts}</p>
+          <p className="text-black/60 text-sm">NFTs</p>
         </div>
-        <div className="p-4 rounded-lg bg-plague-lightGray border border-white/10">
-          <p className="text-2xl font-tanker text-plague-lime">{user.stats.reviews}</p>
-          <p className="text-white/60 text-sm">Reviews</p>
+        <div className="p-4 rounded-lg bg-plague-lightGray border border-black/10">
+          <p className="text-2xl font-tanker text-plague-green">{user.stats.reviews}</p>
+          <p className="text-black/60 text-sm">Reviews</p>
         </div>
-        <div className="p-4 rounded-lg bg-plague-lightGray border border-white/10">
-          <p className="text-2xl font-tanker text-plague-lime">{user.stats.followers}</p>
-          <p className="text-white/60 text-sm">Followers</p>
+        <div className="p-4 rounded-lg bg-plague-lightGray border border-black/10">
+          <p className="text-2xl font-tanker text-plague-green">{user.stats.followers}</p>
+          <p className="text-black/60 text-sm">Followers</p>
         </div>
-        <div className="p-4 rounded-lg bg-plague-lightGray border border-white/10">
-          <p className="text-2xl font-tanker text-plague-lime">{user.stats.following}</p>
-          <p className="text-white/60 text-sm">Following</p>
+        <div className="p-4 rounded-lg bg-plague-lightGray border border-black/10">
+          <p className="text-2xl font-tanker text-plague-green">{user.stats.following}</p>
+          <p className="text-black/60 text-sm">Following</p>
         </div>
       </div>
     </div>

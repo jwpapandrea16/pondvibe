@@ -69,7 +69,7 @@ export default function ProfilePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col bg-black">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-1 py-12 px-4">
           <div className="container mx-auto max-w-6xl">
@@ -83,13 +83,13 @@ export default function ProfilePage() {
 
   if (error || !user) {
     return (
-      <div className="min-h-screen flex flex-col bg-black">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-1 py-12 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="p-12 rounded-xl bg-plague-lightGray border border-red-500 text-center">
-              <h1 className="text-2xl font-tanker text-white mb-4">Profile Not Found</h1>
-              <p className="text-white/60">{error || 'The user you are looking for does not exist.'}</p>
+              <h1 className="text-2xl font-tanker text-black mb-4">Profile Not Found</h1>
+              <p className="text-black/60">{error || 'The user you are looking for does not exist.'}</p>
             </div>
           </div>
         </main>
@@ -99,7 +99,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 py-12 px-4">
@@ -108,13 +108,13 @@ export default function ProfilePage() {
           <UserProfile user={user} isOwner={isOwner} />
 
           {/* Tabs */}
-          <div className="flex gap-2 border-b border-white/10">
+          <div className="flex gap-2 border-b border-black/10">
             <button
               onClick={() => setActiveTab('reviews')}
               className={`px-6 py-3 font-semibold transition-colors ${
                 activeTab === 'reviews'
-                  ? 'text-plague-lime border-b-2 border-plague-lime'
-                  : 'text-white/60 hover:text-white'
+                  ? 'text-plague-green border-b-2 border-plague-green'
+                  : 'text-black/60 hover:text-black'
               }`}
             >
               Reviews ({user.stats.reviews})
@@ -123,8 +123,8 @@ export default function ProfilePage() {
               onClick={() => setActiveTab('nfts')}
               className={`px-6 py-3 font-semibold transition-colors ${
                 activeTab === 'nfts'
-                  ? 'text-plague-lime border-b-2 border-plague-lime'
-                  : 'text-white/60 hover:text-white'
+                  ? 'text-plague-green border-b-2 border-plague-green'
+                  : 'text-black/60 hover:text-black'
               }`}
             >
               NFTs ({user.stats.nfts})
