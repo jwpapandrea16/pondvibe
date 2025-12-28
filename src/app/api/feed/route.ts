@@ -33,17 +33,10 @@ export async function GET(request: NextRequest) {
 
     const followingIds = followingData?.map(f => f.following_id) || []
 
-    // If not following anyone, return empty feed
-    if (followingIds.length === 0) {
-      return NextResponse.json({
-        reviews: [],
-        total: 0,
-        offset,
-        limit,
-      })
-    }
+    // Include current user's own reviews in the feed
+    const feedUserIds = [...followingIds, payload.userId]
 
-    // Get reviews from followed users
+    // Get reviews from followed users AND current user
     let query = supabase
       .from('reviews')
       .select(`
@@ -56,7 +49,7 @@ export async function GET(request: NextRequest) {
           has_plague_nft
         )
       `, { count: 'exact' })
-      .in('user_id', followingIds)
+      .in('user_id', feedUserIds)
       .range(offset, offset + limit - 1)
       .order('created_at', { ascending: false })
 
