@@ -7,7 +7,9 @@ import { FollowButton } from './FollowButton'
 
 interface User {
   id: string
-  wallet_address: string
+  wallet_address: string | null
+  discord_id?: string | null
+  discord_username?: string | null
   username: string | null
   bio: string | null
   profile_image_url: string | null
@@ -220,7 +222,9 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
               ) : (
                 <div className="w-32 h-32 rounded-full bg-plague-green/20 border-4 border-plague-green flex items-center justify-center">
                   <span className="text-plague-green font-tanker text-5xl">
-                    {user.username?.[0]?.toUpperCase() || user.wallet_address.slice(2, 4).toUpperCase()}
+                    {user.username?.[0]?.toUpperCase() ||
+                     user.discord_username?.[0]?.toUpperCase() ||
+                     (user.wallet_address ? user.wallet_address.slice(2, 4).toUpperCase() : '?')}
                   </span>
                 </div>
               )}
