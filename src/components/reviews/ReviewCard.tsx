@@ -116,7 +116,7 @@ export function ReviewCard({ review, onLikeToggle }: ReviewCardProps) {
             <div>
               <div className="flex items-center gap-2">
                 <p className="text-black font-semibold text-sm">
-                  {review.users.discord_username || review.users.username ||
+                  {review.users.username || review.users.discord_username ||
                    (review.users.wallet_address ? `${review.users.wallet_address.slice(0, 6)}...${review.users.wallet_address.slice(-4)}` : 'Anonymous')}
                 </p>
                 {review.users.review_count !== undefined && review.users.review_count > 0 && (
