@@ -75,6 +75,36 @@ export function ReviewFilters() {
         </div>
       </div>
 
+      {/* Subcategory Filter */}
+      {currentCategory && subcategories[currentCategory] && (
+        <div>
+          <h3 className="text-black font-semibold mb-3">Subcategory</h3>
+          <div className="flex flex-wrap gap-2">
+            {subcategories[currentCategory].map((sub) => (
+              <button
+                key={sub}
+                onClick={() => updateFilter('subcategory', sub)}
+                className={`px-4 py-2 rounded-lg border-2 transition-all ${
+                  currentSubcategory === sub
+                    ? 'border-plague-green bg-plague-green/10 text-plague-green'
+                    : 'border-black/10 bg-white text-black/60 hover:border-black/30'
+                }`}
+              >
+                {sub}
+              </button>
+            ))}
+          </div>
+          {currentSubcategory && (
+            <button
+              onClick={() => updateFilter('subcategory', '')}
+              className="mt-2 text-sm text-black/60 hover:text-black transition-colors"
+            >
+              Clear subcategory
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Sort Options */}
       <div>
         <h3 className="text-black font-semibold mb-3">Sort By</h3>
