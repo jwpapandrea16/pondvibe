@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
-import { DiscordLoginButton } from '@/components/auth/DiscordLoginButton'
+import { DiscordButton } from '@/components/auth/DiscordButton'
 
 export function Header() {
   const { isAuthenticated, canCreateReview, user } = useAuth()
@@ -57,9 +57,9 @@ export function Header() {
           )}
         </nav>
 
-        {/* Discord Login Button */}
+        {/* Discord Button - Always visible */}
         <div className="flex items-center gap-3">
-          {!isAuthenticated && <DiscordLoginButton />}
+          <DiscordButton />
         </div>
       </div>
     </header>
