@@ -12,12 +12,20 @@ export async function GET(
     const { address } = await params
     const supabase = await createClient()
 
-    // Fetch user profile
-    const { data: user, error: userError } = await supabase
+    // Fetch user profile - check both wallet_address and discord_id
+    let query = supabase
       .from('users')
       .select('*')
-      .eq('wallet_address', address.toLowerCase())
-      .single()
+
+    // Try to find by wallet address first (if it looks like an address)
+    if (address.startsWith('0x')) {
+      query = query.eq('wallet_address', address.toLowerCase())
+    } else {
+      // Otherwise search by discord_id
+      query = query.eq('discord_id', address)
+    }
+
+    const { data: user, error: userError } = await query.single()
 
     if (userError || !user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
