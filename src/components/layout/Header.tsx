@@ -76,7 +76,7 @@ export function Header() {
                 ) : (
                   <img
                     key={user?.id}
-                    src={user.profile_image_url}
+                    src={user.profile_image_url || ''}
                     alt="Profile"
                     className="w-8 h-8 rounded-full border-2 border-plague-green object-cover"
                     crossOrigin="anonymous"
