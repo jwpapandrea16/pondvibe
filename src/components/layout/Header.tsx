@@ -9,7 +9,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="container mx-auto max-w-7xl px-4">
+      <div className="container mx-auto max-w-6xl px-4">
         <div className="relative flex h-16 items-center justify-between">
           {/* Logo - Left */}
           <div className="flex items-center">
@@ -62,15 +62,23 @@ export function Header() {
                     src={user.profile_image_url}
                     alt="Profile"
                     className="w-8 h-8 rounded-full border-2 border-plague-green object-cover"
+                    crossOrigin="anonymous"
+                    loading="eager"
+                    onError={(e) => {
+                      // Fallback if image fails to load (for Edge compatibility)
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
                   />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
-                    <span className="text-plague-green font-bold text-sm">
-                      {user?.discord_username?.[0]?.toUpperCase() ||
-                       user?.username?.[0]?.toUpperCase() || '?'}
-                    </span>
-                  </div>
-                )}
+                ) : null}
+                <div className={`w-8 h-8 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center ${user?.profile_image_url ? 'hidden' : ''}`}>
+                  <span className="text-plague-green font-bold text-sm">
+                    {user?.discord_username?.[0]?.toUpperCase() ||
+                     user?.username?.[0]?.toUpperCase() || '?'}
+                  </span>
+                </div>
                 <span className="font-semibold whitespace-nowrap">Profile</span>
               </Link>
             )}
