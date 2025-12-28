@@ -26,10 +26,10 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-24 md:py-32 px-4">
+        <section className="relative overflow-hidden py-24 md:py-32 px-4 flex justify-center">
           <div className="absolute inset-0 bg-gradient-to-b from-white to-plague-darkGray" />
 
-          <div className="container relative mx-auto max-w-6xl">
+          <div className="relative w-full max-w-6xl">
             <div className="flex flex-col items-center space-y-8">
               <FadeIn delay={0.1}>
                 <h1 className="text-5xl md:text-7xl font-tanker text-black glow-lime text-center">
