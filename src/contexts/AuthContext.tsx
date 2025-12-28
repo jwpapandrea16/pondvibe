@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const storedToken = localStorage.getItem('auth_token')
       const storedUser = localStorage.getItem('auth_user')
 
-      if (storedToken && storedUser) {
+      if (storedToken && storedUser && storedUser !== 'undefined' && storedUser !== 'null') {
         setToken(storedToken)
         try {
           const parsedUser = JSON.parse(storedUser)
@@ -38,6 +38,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           localStorage.removeItem('auth_user')
           localStorage.removeItem('auth_token')
         }
+      } else {
+        // Clear invalid data
+        localStorage.removeItem('auth_user')
+        localStorage.removeItem('auth_token')
       }
     } catch (e) {
       console.error('Failed to load auth from localStorage:', e)
