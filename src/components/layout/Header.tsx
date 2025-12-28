@@ -3,9 +3,18 @@
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 import { DiscordButton } from '@/components/auth/DiscordButton'
+import { useState, useEffect } from 'react'
 
 export function Header() {
   const { isAuthenticated, canCreateReview, user } = useAuth()
+  const [imageError, setImageError] = useState(false)
+
+  // Reset error state when user or profile image changes
+  useEffect(() => {
+    setImageError(false)
+  }, [user?.id, user?.profile_image_url])
+
+  const showFallback = !user?.profile_image_url || imageError
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
@@ -57,19 +66,26 @@ export function Header() {
                 href={`/profile/${user?.wallet_address || user?.discord_id}`}
                 className="flex items-center gap-2 text-black/80 hover:text-plague-green transition-colors"
               >
-                {user?.profile_image_url ? (
-                  <img
-                    src={user.profile_image_url}
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full border-2 border-plague-green object-cover"
-                  />
-                ) : (
+                {showFallback ? (
                   <div className="w-8 h-8 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
                     <span className="text-plague-green font-bold text-sm">
                       {user?.username?.[0]?.toUpperCase() ||
                        user?.discord_username?.[0]?.toUpperCase() || '?'}
                     </span>
                   </div>
+                ) : (
+                  <img
+                    key={user?.id}
+                    src={user.profile_image_url}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full border-2 border-plague-green object-cover"
+                    crossOrigin="anonymous"
+                    referrerPolicy="no-referrer"
+                    onError={() => {
+                      console.log('Image failed to load:', user?.profile_image_url)
+                      setImageError(true)
+                    }}
+                  />
                 )}
                 <span className="font-semibold whitespace-nowrap">Profile</span>
               </Link>
