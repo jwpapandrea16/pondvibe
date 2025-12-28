@@ -139,11 +139,11 @@ export default function ReviewDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col bg-black">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-1 py-12 px-4">
           <div className="container mx-auto max-w-4xl">
-            <div className="h-96 rounded-xl bg-plague-lightGray animate-pulse" />
+            <div className="h-96 rounded-xl bg-gray-100 animate-pulse" />
           </div>
         </main>
         <Footer />
@@ -153,16 +153,16 @@ export default function ReviewDetailPage() {
 
   if (error || !review) {
     return (
-      <div className="min-h-screen flex flex-col bg-black">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-1 py-12 px-4">
           <div className="container mx-auto max-w-4xl">
-            <div className="p-12 rounded-xl bg-plague-lightGray border border-red-500 text-center">
-              <h1 className="text-2xl font-tanker text-white mb-4">Review Not Found</h1>
-              <p className="text-white/60 mb-6">{error || 'The review you are looking for does not exist.'}</p>
+            <div className="p-12 rounded-xl bg-gray-50 border border-red-500 text-center">
+              <h1 className="text-2xl font-tanker text-black mb-4">Review Not Found</h1>
+              <p className="text-black/60 mb-6">{error || 'The review you are looking for does not exist.'}</p>
               <Link
                 href="/reviews"
-                className="inline-block px-6 py-3 bg-plague-lime text-black font-bold rounded-lg hover:bg-plague-yellow transition-all"
+                className="inline-block px-6 py-3 bg-plague-green text-white font-bold rounded-lg hover:bg-plague-green/80 transition-all"
               >
                 Back to Reviews
               </Link>
@@ -175,7 +175,7 @@ export default function ReviewDetailPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1 py-12 px-4">
