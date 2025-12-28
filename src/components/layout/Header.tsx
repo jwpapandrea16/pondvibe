@@ -37,28 +37,40 @@ export function Header() {
           >
             Feed
           </Link>
-          {isAuthenticated && (
-            <>
-              <Link
-                href={`/profile/${user?.wallet_address || user?.discord_id}`}
-                className="text-black/80 hover:text-plague-green transition-colors"
-              >
-                Profile
-              </Link>
-              {canCreateReview && (
-                <Link
-                  href="/reviews/new"
-                  className="px-4 py-2 rounded-lg bg-plague-green text-white font-semibold hover:bg-plague-green/80 transition-colors"
-                >
-                  Write Review
-                </Link>
-              )}
-            </>
+          {canCreateReview && (
+            <Link
+              href="/reviews/new"
+              className="px-4 py-2 rounded-lg bg-plague-green text-white font-semibold hover:bg-plague-green/80 transition-colors"
+            >
+              Write Review
+            </Link>
           )}
         </nav>
 
-        {/* Discord Button - Always visible */}
+        {/* Right side - Profile & Discord Button */}
         <div className="flex items-center gap-3">
+          {isAuthenticated && (
+            <Link
+              href={`/profile/${user?.wallet_address || user?.discord_id}`}
+              className="flex items-center gap-2 text-black/80 hover:text-plague-green transition-colors"
+            >
+              {user?.profile_image_url ? (
+                <img
+                  src={user.profile_image_url}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full border-2 border-plague-green object-cover"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-plague-green/20 border-2 border-plague-green flex items-center justify-center">
+                  <span className="text-plague-green font-bold text-sm">
+                    {user?.discord_username?.[0]?.toUpperCase() ||
+                     user?.username?.[0]?.toUpperCase() || '?'}
+                  </span>
+                </div>
+              )}
+              <span className="font-semibold">Profile</span>
+            </Link>
+          )}
           <DiscordButton />
         </div>
       </div>
