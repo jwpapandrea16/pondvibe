@@ -11,8 +11,16 @@ export interface User {
   ens_name: string | null
   nfts_last_synced_at: string | null
   has_plague_nft: boolean
+  interests?: UserInterests | null
   created_at: string
   updated_at: string
+}
+
+export interface UserInterests {
+  tv_show?: string[]
+  movie?: string[]
+  book?: string[]
+  travel_destination?: string[]
 }
 
 export interface UserNFT {
@@ -64,4 +72,20 @@ export interface NFTCollection {
   image_url: string | null
   description: string | null
   cached_at: string
+}
+
+export interface SimilarUser {
+  id: string
+  username: string | null
+  profile_image_url: string | null
+  wallet_address: string | null
+  discord_username?: string | null
+  bio: string | null
+  match_count: number
+  shared_interests: {
+    tv_show: string[]
+    movie: string[]
+    book: string[]
+    travel_destination: string[]
+  }
 }
