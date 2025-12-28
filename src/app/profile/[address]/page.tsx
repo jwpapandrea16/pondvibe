@@ -7,6 +7,8 @@ import { Footer } from '@/components/layout/Footer'
 import { UserProfile } from '@/components/user/UserProfile'
 import { UserNFTs } from '@/components/user/UserNFTs'
 import { UserReviews } from '@/components/user/UserReviews'
+import { UserInterests } from '@/components/user/UserInterests'
+import { SimilarUsers } from '@/components/user/SimilarUsers'
 import { useAuth } from '@/contexts/AuthContext'
 
 interface User {
@@ -18,6 +20,7 @@ interface User {
   bio: string | null
   profile_image_url: string | null
   has_plague_nft: boolean
+  interests?: Record<string, string[]> | null
   created_at: string
   stats: {
     nfts: number
@@ -109,6 +112,23 @@ export default function ProfilePage() {
         <div className="container mx-auto max-w-6xl space-y-8">
           {/* User Profile */}
           <UserProfile user={user} isOwner={isOwner} />
+
+          {/* Interests Section */}
+          <div className="space-y-6">
+            {/* User's Interests */}
+            {user.interests && Object.keys(user.interests).length > 0 && (
+              <div className="p-8 rounded-xl bg-plague-darkGray border border-black/10">
+                <UserInterests
+                  interests={user.interests}
+                  isEditing={false}
+                  onChange={() => {}}
+                />
+              </div>
+            )}
+
+            {/* Similar Users - Only show on own profile */}
+            {isOwner && <SimilarUsers />}
+          </div>
 
           {/* Tabs */}
           <div className="flex gap-2 border-b border-black/10">
