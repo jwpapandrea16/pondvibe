@@ -27,7 +27,7 @@ export function Footer() {
               The Plague NFT
             </a>
             <a
-              href="https://exodus.plaguebrands.io"
+              href="https://opensea.io/collection/exodus-of-frogs"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-plague-green transition-colors"
@@ -38,7 +38,7 @@ export function Footer() {
         </div>
 
         <div className="mt-6 text-center text-xs text-black/40">
-          © {new Date().getFullYear()} Pond Vibe. Powered by Ethereum.
+          © {new Date().getFullYear()} Pond Vibe. Powered by the Exodus Plague Community.
         </div>
       </div>
     </footer>
