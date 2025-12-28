@@ -28,8 +28,8 @@ export function DiscordAuthHandler() {
       // Handle Discord auth errors
       if (error === 'missing_role') {
         showToast(
-          message || 'You need the "Frog Holder" role in Plague Brands Discord.',
-          'error',
+          message || "You don't have the NFTs needed to write reviews, but make your profile and feel free to check out the verified reviews!",
+          'info',
           8000
         )
       } else {
@@ -57,11 +57,21 @@ export function DiscordAuthHandler() {
         }
 
         login(token, user as any)
-        showToast(
-          'Successfully logged in with Discord! You can now write reviews.',
-          'success',
-          6000
-        )
+
+        // Show different message based on NFT status
+        if (payload.hasPlagueNFT) {
+          showToast(
+            'Successfully logged in with Discord! You can now write reviews.',
+            'success',
+            6000
+          )
+        } else {
+          showToast(
+            "Welcome! You don't have the NFTs needed to write reviews, but make your profile and feel free to check out the verified reviews!",
+            'info',
+            8000
+          )
+        }
 
         // Clean up URL
         router.replace('/')
