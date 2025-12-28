@@ -110,51 +110,53 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-16 px-4 bg-white">
-          <div className="container mx-auto max-w-6xl">
+        <section className="py-16 px-4 bg-white flex flex-col items-center">
+          <div className="w-full max-w-6xl">
             <FadeIn delay={0.2}>
               <h2 className="text-3xl md:text-4xl font-tanker text-black text-center mb-12">
                 How It Works
               </h2>
             </FadeIn>
 
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <StaggerItem>
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
-                    <span className="text-2xl font-bold text-black">1</span>
+            <div className="flex justify-center">
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl">
+                <StaggerItem>
+                  <div className="text-center px-4">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
+                      <span className="text-2xl font-bold text-black">1</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-black mb-2">Login with Discord</h3>
+                    <p className="text-black/60">
+                      Connect your Discord to verify your Frog Holder role in Plague Brands
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-black mb-2">Login with Discord</h3>
-                  <p className="text-black/60">
-                    Connect your Discord to verify your Frog Holder role in Plague Brands
-                  </p>
-                </div>
-              </StaggerItem>
+                </StaggerItem>
 
-              <StaggerItem>
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
-                    <span className="text-2xl font-bold text-black">2</span>
+                <StaggerItem>
+                  <div className="text-center px-4">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
+                      <span className="text-2xl font-bold text-black">2</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-black mb-2">Write Reviews</h3>
+                    <p className="text-black/60">
+                      Share your honest opinions and rate your favorite content
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-black mb-2">Write Reviews</h3>
-                  <p className="text-black/60">
-                    Share your honest opinions and rate your favorite content
-                  </p>
-                </div>
-              </StaggerItem>
+                </StaggerItem>
 
-              <StaggerItem>
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
-                    <span className="text-2xl font-bold text-black">3</span>
+                <StaggerItem>
+                  <div className="text-center px-4">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plague-lime/20 border-2 border-plague-green flex items-center justify-center">
+                      <span className="text-2xl font-bold text-black">3</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-black mb-2">Connect with Community</h3>
+                    <p className="text-black/60">
+                      Follow other Plague holders and discover curated recommendations
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-black mb-2">Connect with Community</h3>
-                  <p className="text-black/60">
-                    Follow other Plague holders and discover curated recommendations
-                  </p>
-                </div>
-              </StaggerItem>
-            </StaggerContainer>
+                </StaggerItem>
+              </StaggerContainer>
+            </div>
           </div>
         </section>
       </main>
