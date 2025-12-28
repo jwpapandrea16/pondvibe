@@ -24,12 +24,20 @@ const categories = [
   { name: 'Travel', slug: 'travel_destination', emoji: '✈️' },
 ]
 
+const subcategories: Record<string, string[]> = {
+  tv_show: ['Drama', 'Comedy', 'Thriller', 'Sci-Fi', 'Documentary', 'Reality', 'Animated', 'Other'],
+  movie: ['Drama', 'Comedy', 'Action', 'Thriller', 'Sci-Fi', 'Horror', 'Documentary', 'Animated', 'Other'],
+  book: ['Biography', 'Fiction', 'Non-Fiction', 'Self-Improvement', 'Mystery', 'Sci-Fi', 'Fantasy', 'Romance', 'History', 'Other'],
+  travel_destination: ['City', 'Beach', 'Mountain', 'Country', 'Island', 'National Park', 'Historical Site', 'Other'],
+}
+
 export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
   const { token } = useAuth()
   const router = useRouter()
 
   const [formData, setFormData] = useState({
     category: initialData?.category || '',
+    subcategory: '',
     subject_name: initialData?.subject_name || '',
     content: initialData?.content || '',
     rating: initialData?.rating || 5.0,
@@ -165,6 +173,27 @@ export function ReviewForm({ initialData, mode = 'create' }: ReviewFormProps) {
         </div>
         {errors.category && <p className="text-red-500 text-sm mt-2">{errors.category}</p>}
       </div>
+
+      {/* Subcategory Selection */}
+      {formData.category && subcategories[formData.category] && (
+        <div>
+          <label className="block text-black font-semibold mb-3">
+            Subcategory (Optional)
+          </label>
+          <select
+            value={formData.subcategory}
+            onChange={(e) => handleChange('subcategory', e.target.value)}
+            className="w-full px-4 py-3 bg-white border border-black/20 rounded-lg text-black focus:border-plague-green focus:outline-none transition-colors"
+          >
+            <option value="">Select a subcategory...</option>
+            {subcategories[formData.category].map((sub) => (
+              <option key={sub} value={sub}>
+                {sub}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* Subject Name with Dropdown */}
       <div className="relative">
