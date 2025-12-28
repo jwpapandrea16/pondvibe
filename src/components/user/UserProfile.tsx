@@ -291,6 +291,16 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                   />
                   <p className="text-xs text-black/50 mt-1">{editData.bio.length}/200 characters</p>
                 </div>
+                <div>
+                  <label className="block text-sm font-semibold text-black mb-2">
+                    Interests
+                  </label>
+                  <UserInterests
+                    interests={editData.interests}
+                    isEditing={true}
+                    onChange={(newInterests) => setEditData({ ...editData, interests: newInterests })}
+                  />
+                </div>
                 <div className="flex gap-3">
                   <button
                     onClick={handleSave}
@@ -306,6 +316,7 @@ export function UserProfile({ user, isOwner, onFollowToggle }: UserProfileProps)
                         username: user.username || '',
                         bio: user.bio || '',
                         profile_image_url: user.profile_image_url || '',
+                        interests: user.interests || {},
                       })
                     }}
                     className="px-6 py-2 border-2 border-black/10 text-black rounded-lg hover:border-black/30 transition-colors"
