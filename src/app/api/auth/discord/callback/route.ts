@@ -42,16 +42,9 @@ export async function GET(request: NextRequest) {
     console.log('Discord user authenticated:', discordUser.username)
 
     // Verify user has "Frog Holder" role in Plague Brands
+    // Users can still create profiles without the role, but cannot write reviews
     const hasFrogHolderRole = await verifyPlagueBrandsRole(access_token)
     console.log('Has Frog Holder role:', hasFrogHolderRole)
-
-    if (!hasFrogHolderRole) {
-      return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_APP_URL}?error=missing_role&message=${encodeURIComponent(
-          'You need the "Frog Holder" role in Plague Brands Discord to access this feature.'
-        )}`
-      )
-    }
 
     // Get Supabase client
     const supabase = await createClient()
@@ -74,7 +67,7 @@ export async function GET(request: NextRequest) {
           discord_username: discordUser.discriminator !== '0'
             ? `${discordUser.username}#${discordUser.discriminator}`
             : discordUser.username,
-          has_plague_nft: true, // Verified via Discord role
+          has_plague_nft: hasFrogHolderRole, // Only true if verified via Discord role
           updated_at: new Date().toISOString(),
         })
         .eq('discord_id', discordUser.id)
@@ -96,7 +89,7 @@ export async function GET(request: NextRequest) {
           discord_username: discordUser.discriminator !== '0'
             ? `${discordUser.username}#${discordUser.discriminator}`
             : discordUser.username,
-          has_plague_nft: true, // Verified via Discord role
+          has_plague_nft: hasFrogHolderRole, // Only true if verified via Discord role
         })
         .select()
         .single()
@@ -112,7 +105,7 @@ export async function GET(request: NextRequest) {
     const token = generateToken({
       userId: user.id,
       discordId: discordUser.id,
-      hasPlagueNFT: true,
+      hasPlagueNFT: hasFrogHolderRole, // Reflects actual role status
     })
 
     // Redirect to home with token
